@@ -14,7 +14,7 @@
   --schedule: #E1AE4A;
   }
   .App{
-    overflow:hidden;
+    /* overflow:hidden; */
     color:var(--black);
     background:#f3f3f3;
     padding:1rem 1rem;
@@ -27,3 +27,4 @@
     background:#a6ddf0;
     filter:blur(72px)
   }
+  

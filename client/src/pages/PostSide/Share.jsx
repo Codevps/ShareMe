@@ -12,12 +12,13 @@ import React from "react";
 import profile from "../../img/profileImg.jpg";
 import "./styles.css";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import CloseIcon from "@mui/icons-material/Close";
 import VideoCameraBackIcon from "@mui/icons-material/VideoCameraBack";
 import AddLocationIcon from "@mui/icons-material/AddLocation";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-const Share = () => {
+const Share = ({ open, setOpen }) => {
   return (
-    <div>
+    <div style={{ backgroundColor: "transparent" }}>
       <Card
         style={{
           height: "auto",
@@ -52,9 +53,22 @@ const Share = () => {
                 borderRadius: "50%",
               }}
             />
+            {console.log(open)}
             <CardContent>
               <TextField style={{ width: "auto" }} />
             </CardContent>
+            {open && (
+              <Button
+                style={{
+                  position: "relative",
+                  top: "-1rem",
+                  right: "-15rem",
+                }}
+                onClick={() => setOpen(false)}
+              >
+                <CloseIcon />
+              </Button>
+            )}
           </div>
           <div
             style={{
