@@ -3,7 +3,7 @@ import PostSide from "../PostSide/PostSide";
 import ProfileSide from "../ProfileSide/ProfileSide";
 import RightSide from "../RightSide/RightSide";
 import "./styles.css";
-const styles = () => {
+const Home = () => {
   return (
     <div className="Home">
       <div className="profileSide">
@@ -19,4 +19,4 @@ const styles = () => {
   );
 };
 
-export default styles;
+export default Home;
