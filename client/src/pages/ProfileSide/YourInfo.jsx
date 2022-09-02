@@ -1,16 +1,14 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
-import React from "react";
-import { Link } from "react-router-dom";
+import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import cover from "../../img/cover.jpg";
 import profile from "../../img/profileImg.jpg";
+import Followers from "../ProfileSide/Followers";
+import FollowersModal from "./FollowersModal.jsx";
+
 const YourInfo = () => {
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   return (
     <div>
       <Card
@@ -104,63 +102,42 @@ const YourInfo = () => {
           >
             <Typography
               variant="h6"
-              style={{ color: "orange", padding: "1rem", fontSize: "1.4rem" }}
-              //link here
+              style={{
+                color: "orange",
+                padding: "1rem",
+                fontSize: "1.4rem",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                navigate("/myprofile");
+              }}
             >
               <b> My Profile</b>
             </Typography>
           </div>
         </CardContent>
       </Card>
-      <div style={{ textAlign: "center", paddingTop: "3rem" }}>
-        <Typography variant="h5">
-          <b>Your followers</b>
+      <Followers />
+      {/* ------------------------------------------------------------------- */}
+      <div
+        style={{
+          textAlign: "center",
+        }}
+      >
+        <Typography
+          variant="h6"
+          style={{
+            color: "orange",
+            padding: "1rem",
+            fontSize: "1.4rem",
+            cursor: "pointer",
+          }}
+          onClick={() => setOpen(true)}
+        >
+          <b>Show More</b>
         </Typography>
-        {/* put a loop here .map funtion */}
-        {/* contains of element */}
-        <div>
-          <Card
-            style={{
-              height: "5rem",
-              width: "23rem",
-              backgroundColor: "transparent",
-              marginTop: "1rem",
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-evenly ",
-            }}
-            elevation={4}
-          >
-            <CardMedia
-              image={profile}
-              style={{
-                height: "4.5rem",
-                width: "4.5rem",
-                borderRadius: "50%",
-              }}
-            />
-            <CardContent style={{ padding: "0.2rem" }}>
-              <Typography variant="body1">
-                <b>Durwank Raorane</b>
-              </Typography>
-              <Typography variant="body2">Ui/Ux Designer</Typography>
-            </CardContent>
-            <CardActions>
-              <Button
-                variant="contained"
-                style={{
-                  color: "white",
-                  background:
-                    "linear-gradient(98.63deg, #f9a225 0%, #f95f35 100%)",
-                }}
-              >
-                Follow
-              </Button>
-            </CardActions>
-          </Card>
-        </div>
       </div>
+      <FollowersModal open={open} setOpen={setOpen} />
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home/Home.jsx";
 import Share from "./pages/PostSide/Share";
+import MyProfile from "./pages/MyProfile/MyProfile.jsx";
 
 const App = () => {
   // const user = JSON.parse(localStorage.getItem("profile"));
@@ -15,6 +16,7 @@ const App = () => {
           <Route path="/" exact element={<Navigate to="/home" />} />
           <Route path="/home" exact element={<Home />} />
           <Route path="/postShare" exact element={<Share />} />
+          <Route path="/myprofile" exact element={<MyProfile />} />
         </Routes>
       </BrowserRouter>
     </div>

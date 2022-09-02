@@ -1,6 +1,6 @@
 import React from "react";
 import LogoSearch from "../LogoSearch/LogoSearch";
-import YourInfo from "../YourInfo/YourInfo.jsx";
+import YourInfo from "../ProfileSide/YourInfo.jsx";
 
 const ProfileSide = () => {
   return (
