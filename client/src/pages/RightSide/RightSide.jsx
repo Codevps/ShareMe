@@ -8,6 +8,7 @@ import Trends from "./Trends.jsx";
 const RightSide = () => {
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
+  const user = JSON.parse(localStorage.getItem("profile"));
   const navigate = useNavigate();
   return (
     <div className="RightSide">
@@ -23,7 +24,7 @@ const RightSide = () => {
           style={{ color: "black", fontSize: "2rem" }}
           onClick={() => navigate("/home")}
         >
-          <i class="fa-solid fa-house-user" style={{ color: "#ff5349" }}></i>
+          <i class="fa-solid fa-house-user" style={{ color: "teal" }}></i>
         </IconButton>
         <div
           style={{
@@ -59,19 +60,37 @@ const RightSide = () => {
               >
                 <b>Pratham</b>
               </p>
-              <Button
-                // className={classes.btn}
-                variant="contained"
-                style={{
-                  color: "black",
-                  border: "1px solid black",
-                  backgroundColor: "transparent",
-                  margin: "0.5rem",
-                }}
-                onClick={() => {}}
-              >
-                Logout
-              </Button>
+              {user ? (
+                <Button
+                  // className={classes.btn}
+                  variant="contained"
+                  style={{
+                    color: "black",
+                    border: "1px solid black",
+                    backgroundColor: "transparent",
+                    margin: "0.5rem",
+                  }}
+                  onClick={() => {}}
+                >
+                  Logout
+                </Button>
+              ) : (
+                <Button
+                  // className={classes.btn}
+                  variant="contained"
+                  style={{
+                    color: "black",
+                    border: "1px solid black",
+                    backgroundColor: "transparent",
+                    margin: "0.5rem",
+                  }}
+                  onClick={() => {
+                    navigate("/signup");
+                  }}
+                >
+                  Login
+                </Button>
+              )}
             </Paper>
           )}
         </div>
