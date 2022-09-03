@@ -7,7 +7,6 @@ const Trends = () => {
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       <Card
-        fullWidth
         style={{
           marginTop: "2rem",
           backgroundColor: "transparent",

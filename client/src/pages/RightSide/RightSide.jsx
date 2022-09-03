@@ -1,12 +1,13 @@
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import { Button, IconButton } from "@mui/material";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ShareModal from "../PostSide/ShareModal.jsx";
 import Trends from "./Trends.jsx";
 
 const RightSide = () => {
   const [open, setOpen] = useState(false);
-  console.log(open);
+  const navigate = useNavigate();
   return (
     <div className="RightSide">
       <div
@@ -17,8 +18,11 @@ const RightSide = () => {
           paddingTop: "1rem",
         }}
       >
-        <IconButton style={{ color: "black", fontSize: "2rem" }}>
-          <i class="fa-solid fa-house-user"></i>
+        <IconButton
+          style={{ color: "black", fontSize: "2rem" }}
+          onClick={() => navigate("/home")}
+        >
+          <i class="fa-solid fa-house-user" style={{ color: "#ff5349" }}></i>
         </IconButton>
         <IconButton style={{ color: "black", fontSize: "2rem" }}>
           <i class="fa-solid fa-gear"></i>

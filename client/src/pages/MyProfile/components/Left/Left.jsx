@@ -6,7 +6,7 @@ import FollowersModal from "../../../ProfileSide/FollowersModal";
 import EditProfile from "./EditProfile";
 
 const Left = () => {
-  const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
 
   return (
     <div>
@@ -26,12 +26,12 @@ const Left = () => {
             fontSize: "1.4rem",
             cursor: "pointer",
           }}
-          onClick={() => setOpen(true)}
+          onClick={() => setOpen2(true)}
         >
           <b>Show More</b>
         </Typography>
       </div>
-      <FollowersModal open={open} setOpen={setOpen} />
+      <FollowersModal open={open2} setOpen={setOpen2} />
     </div>
   );
 };

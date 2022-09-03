@@ -10,9 +10,10 @@ const HeadInfo = () => {
         style={{
           marginTop: "1rem",
           background: "transparent",
-          borderRadius: "7%",
-          height: "29rem",
-          width: "22rem",
+          // borderRadius: "7%",
+          height: "auto",
+          width: "auto",
+          marginRight: "1rem",
         }}
       >
         <CardMedia
@@ -32,15 +33,16 @@ const HeadInfo = () => {
           <CardMedia
             image={profile}
             style={{
-              height: 0,
-              paddingTop: "46.25%",
+              height: "10rem",
+              width: "10rem",
               borderRadius: "50%",
-              width: "50%",
               position: "absolute",
-              top: "-5.3rem",
+              top: "-5.5rem",
+              marginBottom: "2rem",
             }}
           />
         </div>
+
         <CardContent>
           <div style={{ marginTop: "4.6rem", textAlign: "center" }}>
             <Typography variant="h5">
@@ -68,8 +70,6 @@ const HeadInfo = () => {
               style={{
                 display: "flex",
                 flexDirection: "column",
-                borderRight: "1px solid grey",
-                paddingRight: "1rem",
               }}
             >
               <Typography variant="h6">
@@ -81,6 +81,10 @@ const HeadInfo = () => {
               style={{
                 display: "flex",
                 flexDirection: "column",
+                borderLeft: "1px solid grey",
+                borderRight: "1px solid grey",
+                paddingLeft: "2rem",
+                paddingRight: "2rem",
               }}
             >
               <Typography variant="h6">
@@ -88,10 +92,20 @@ const HeadInfo = () => {
               </Typography>
               <Typography variant="body1">Following</Typography>
             </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <Typography variant="h6">
+                <b>5</b>
+              </Typography>
+              <Typography variant="body1">Posts</Typography>
+            </div>
           </div>
         </CardContent>
       </Card>
-      s
     </div>
   );
 };

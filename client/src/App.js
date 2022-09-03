@@ -4,6 +4,7 @@ import "./App.css";
 import Home from "./pages/Home/Home.jsx";
 import Share from "./pages/PostSide/Share";
 import MyProfile from "./pages/MyProfile/MyProfile.jsx";
+import SignUp from "./pages/SignUp/SignUp.jsx";
 
 const App = () => {
   // const user = JSON.parse(localStorage.getItem("profile"));
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/home" exact element={<Home />} />
           <Route path="/postShare" exact element={<Share />} />
           <Route path="/myprofile" exact element={<MyProfile />} />
+          <Route path="/signup" exact element={<SignUp />} />
         </Routes>
       </BrowserRouter>
     </div>

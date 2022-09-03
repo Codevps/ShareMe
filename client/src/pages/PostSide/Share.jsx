@@ -1,3 +1,8 @@
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import AddLocationIcon from "@mui/icons-material/AddLocation";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import CloseIcon from "@mui/icons-material/Close";
+import VideoCameraBackIcon from "@mui/icons-material/VideoCameraBack";
 import {
   Button,
   Card,
@@ -11,11 +16,6 @@ import {
 import React from "react";
 import profile from "../../img/profileImg.jpg";
 import "./styles.css";
-import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
-import CloseIcon from "@mui/icons-material/Close";
-import VideoCameraBackIcon from "@mui/icons-material/VideoCameraBack";
-import AddLocationIcon from "@mui/icons-material/AddLocation";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 const Share = ({ open, setOpen }) => {
   return (
     <div style={{ backgroundColor: "transparent" }}>
@@ -48,21 +48,26 @@ const Share = ({ open, setOpen }) => {
             <CardMedia
               image={profile}
               style={{
+                marginLeft: "1rem",
                 height: "4.5rem",
                 width: "4.5rem",
                 borderRadius: "50%",
               }}
             />
-            {console.log(open)}
             <CardContent>
-              <TextField style={{ width: "auto" }} />
+              <TextField
+                placeholder="It's a lovely day"
+                style={{ marginLeft: "0.5rem", width: "auto" }}
+                name="search"
+                label="Write about the post"
+              />
             </CardContent>
             {open && (
               <Button
                 style={{
                   position: "relative",
                   top: "-1rem",
-                  right: "-15rem",
+                  right: "-14rem",
                 }}
                 onClick={() => setOpen(false)}
               >
@@ -151,8 +156,7 @@ const Share = ({ open, setOpen }) => {
                 variant="contained"
                 style={{
                   color: "white",
-                  background:
-                    "linear-gradient(98.63deg, #f9a225 0%, #f95f35 100%)",
+                  background: "linear-nt(98.63deg, #f9a225 0%, #f95f35 100%)",
                 }}
               >
                 Share
