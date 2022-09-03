@@ -57,7 +57,7 @@ const Share = ({ open, setOpen }) => {
             <CardContent>
               <TextField
                 placeholder="It's a lovely day"
-                style={{ marginLeft: "0.5rem", width: "auto" }}
+                style={{ marginLeft: "0.5rem" }}
                 name="search"
                 label="Write about the post"
               />
@@ -156,7 +156,8 @@ const Share = ({ open, setOpen }) => {
                 variant="contained"
                 style={{
                   color: "white",
-                  background: "linear-nt(98.63deg, #f9a225 0%, #f95f35 100%)",
+                  background:
+                    "linear-gradient(98.63deg, #f9a225 0%, #f95f35 100%)",
                 }}
               >
                 Share
