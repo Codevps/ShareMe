@@ -1,10 +1,17 @@
 import { Button, Grid, Paper, Typography } from "@mui/material";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { AUTH } from "../../constants/actionTypes";
 import Logo from "../../img/logo.png";
+import Icon from "./Icon";
 import Input from "./Input";
 import "./styles.css";
+import { GoogleLogin } from "react-google-login";
 
 const SignUp = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -23,6 +30,22 @@ const SignUp = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
   const [showPassword, setShowPassword] = useState(false);
+  /*------------------------------------------------*/
+  const googleSuccess = (res) => {
+    const result = res?.profileObj;
+    const token = res?.tokenId;
+    try {
+      dispatch({ type: AUTH, data: { result, token } });
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const googleFailure = () => {
+    console.log("Google Sign In Failed");
+  };
+
+  /*------------------------------------------------*/
   return (
     <div
       style={{
@@ -150,19 +173,24 @@ const SignUp = () => {
                     >
                       Save
                     </Button>
-                    <Button
-                      variant="contained"
-                      fullWidth
-                      style={{
-                        color: "orange",
-                        margin: "0 0 1rem 0",
-                        background: "transparent",
-                        border: "1px solid orange",
-                      }}
-                      onClick={() => {}}
-                    >
-                      Clear
-                    </Button>
+                    <GoogleLogin
+                      clientId={clientId}
+                      render={(renderProps) => (
+                        <Button
+                          fullWidth
+                          color="primary"
+                          onClick={renderProps.onClick}
+                          disabled={renderProps.disabled}
+                          startIcon={<Icon />}
+                          variant="contained"
+                        >
+                          {isSignup ? "Google Sign Up" : "Google Sign In"}
+                        </Button>
+                      )}
+                      onSuccess={googleSuccess}
+                      onFailure={googleFailure}
+                      cookiePolicy="single_host_origin"
+                    />
                     <Button
                       variant="contained"
                       fullWidth
@@ -216,21 +244,26 @@ const SignUp = () => {
                       }}
                       type="submit"
                     >
-                      Save
-                    </Button>
-                    <Button
-                      variant="contained"
-                      fullWidth
-                      style={{
-                        color: "orange",
-                        margin: "0 0 1rem 0",
-                        background: "transparent",
-                        border: "1px solid orange",
-                      }}
-                      onClick={() => {}}
-                    >
-                      Clear
-                    </Button>
+                      Submit
+                    </Button>{" "}
+                    <GoogleLogin
+                      clientId={clientId}
+                      render={(renderProps) => (
+                        <Button
+                          fullWidth
+                          color="primary"
+                          onClick={renderProps.onClick}
+                          disabled={renderProps.disabled}
+                          startIcon={<Icon />}
+                          variant="contained"
+                        >
+                          {isSignup ? "Google Sign Up" : "Google Sign In"}
+                        </Button>
+                      )}
+                      onSuccess={googleSuccess}
+                      onFailure={googleFailure}
+                      cookiePolicy="single_host_origin"
+                    />
                     <Button
                       variant="contained"
                       fullWidth
