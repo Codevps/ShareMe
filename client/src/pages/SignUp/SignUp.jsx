@@ -7,7 +7,7 @@ import Logo from "../../img/logo.png";
 import Icon from "./Icon";
 import Input from "./Input";
 import "./styles.css";
-import { GoogleLogin } from "react-google-login";
+// import { GoogleLogin } from "react-google-login";
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -173,7 +173,7 @@ const SignUp = () => {
                     >
                       Save
                     </Button>
-                    <GoogleLogin
+                    {/* <GoogleLogin
                       clientId={clientId}
                       render={(renderProps) => (
                         <Button
@@ -190,7 +190,7 @@ const SignUp = () => {
                       onSuccess={googleSuccess}
                       onFailure={googleFailure}
                       cookiePolicy="single_host_origin"
-                    />
+                    /> */}
                     <Button
                       variant="contained"
                       fullWidth
@@ -246,7 +246,7 @@ const SignUp = () => {
                     >
                       Submit
                     </Button>{" "}
-                    <GoogleLogin
+                    {/* <GoogleLogin
                       clientId={clientId}
                       render={(renderProps) => (
                         <Button
@@ -263,7 +263,7 @@ const SignUp = () => {
                       onSuccess={googleSuccess}
                       onFailure={googleFailure}
                       cookiePolicy="single_host_origin"
-                    />
+                    /> */}
                     <Button
                       variant="contained"
                       fullWidth

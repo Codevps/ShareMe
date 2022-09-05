@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import cover from "../../img/cover.jpg";
 import profile from "../../img/profileImg.jpg";
-import Followers from "../ProfileSide/Followers";
+import Followers from "./Followers";
 import FollowersModal from "./FollowersModal.jsx";
 
 const YourInfo = () => {
