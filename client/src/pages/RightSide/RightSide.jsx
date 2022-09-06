@@ -1,15 +1,23 @@
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import { Button, IconButton, Paper } from "@mui/material";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { LOGOUT } from "../../constants/actionTypes";
 import ShareModal from "../PostSide/ShareModal.jsx";
 import Trends from "./Trends.jsx";
 
 const RightSide = () => {
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
-  const user = JSON.parse(localStorage.getItem("profile"));
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const logout = () => {
+    dispatch({ type: LOGOUT });
+    setUser(null);
+    navigate("/");
+  };
   return (
     <div className="RightSide">
       <div
@@ -58,7 +66,7 @@ const RightSide = () => {
                 variant="h6"
                 style={{ textTransform: "uppercase", color: "black" }}
               >
-                <b>{user?.result.name[0]}</b>
+                <b>{user?.result.name.split(" ")[0]}</b>
               </p>
               {user ? (
                 <Button
@@ -70,7 +78,9 @@ const RightSide = () => {
                     backgroundColor: "transparent",
                     margin: "0.5rem",
                   }}
-                  onClick={() => {}}
+                  onClick={() => {
+                    logout();
+                  }}
                 >
                   Logout
                 </Button>
