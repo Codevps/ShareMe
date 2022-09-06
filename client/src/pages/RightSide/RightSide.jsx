@@ -58,7 +58,7 @@ const RightSide = () => {
                 variant="h6"
                 style={{ textTransform: "uppercase", color: "black" }}
               >
-                <b>Pratham</b>
+                <b>{user?.result.name[0]}</b>
               </p>
               {user ? (
                 <Button

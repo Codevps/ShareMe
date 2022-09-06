@@ -2,9 +2,8 @@ import { Button, Grid, Paper, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { AUTH } from "../../constants/actionTypes";
+import { signIn, signUp } from "../../actions/user";
 import Logo from "../../img/logo.png";
-import Icon from "./Icon";
 import Input from "./Input";
 import "./styles.css";
 // import { GoogleLogin } from "react-google-login";
@@ -16,34 +15,42 @@ const SignUp = () => {
     firstName: "",
     lastName: "",
     email: "",
+    contact: "",
     password: "",
     confirmPassword: "",
   });
-  const [isSignup, setIsSignup] = useState(true);
+  const [isSignUp, setIsSignUp] = useState(true);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+
   const handleShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
   const [showPassword, setShowPassword] = useState(false);
   /*------------------------------------------------*/
-  const googleSuccess = (res) => {
-    const result = res?.profileObj;
-    const token = res?.tokenId;
-    try {
-      dispatch({ type: AUTH, data: { result, token } });
-      navigate("/");
-    } catch (error) {
-      console.log(error);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    if (isSignUp) {
+      dispatch(signUp(formData, navigate));
+    } else {
+      dispatch(signIn(formData, navigate));
     }
   };
-  const googleFailure = () => {
-    console.log("Google Sign In Failed");
-  };
+  // const googleSuccess = (res) => {
+  //   const result = res?.profileObj;
+  //   const token = res?.tokenId;
+  //   try {
+  //     dispatch({ type: AUTH, data: { result, token } });
+  //     navigate("/");
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+  // const googleFailure = () => {
+  //   console.log("Google Sign In Failed");
+  // };
 
   /*------------------------------------------------*/
   return (
@@ -62,7 +69,6 @@ const SignUp = () => {
     >
       <Grid
         container
-        // className="modalContainer"
         style={{
           display: "flex",
           flexDirection: "row",
@@ -105,8 +111,9 @@ const SignUp = () => {
         <Grid item xs={12} sm={7} md={5} lg={4}>
           <Paper style={{ padding: "1rem", background: "transparent" }}>
             <form onSubmit={handleSubmit}>
-              {isSignup ? (
+              {isSignUp ? (
                 <>
+                  {/* Sign Up */}
                   <div style={{ textAlign: "center" }}>
                     <Typography variant="h5">
                       <b>SignUp</b>
@@ -152,7 +159,7 @@ const SignUp = () => {
                       handleShowPassword={handleShowPassword}
                     />
                     <Input
-                      name="confirmpassword"
+                      name="confirmPassword"
                       label="Confirm Password"
                       placeholder="Confirm Password"
                       half
@@ -171,7 +178,7 @@ const SignUp = () => {
                       }}
                       type="submit"
                     >
-                      Save
+                      Submit
                     </Button>
                     {/* <GoogleLogin
                       clientId={clientId}
@@ -184,7 +191,7 @@ const SignUp = () => {
                           startIcon={<Icon />}
                           variant="contained"
                         >
-                          {isSignup ? "Google Sign Up" : "Google Sign In"}
+                          {isSignUp ? "Google Sign Up" : "Google Sign In"}
                         </Button>
                       )}
                       onSuccess={googleSuccess}
@@ -202,7 +209,7 @@ const SignUp = () => {
                         boxShadow: "none",
                       }}
                       onClick={() => {
-                        setIsSignup(false);
+                        setIsSignUp(false);
                       }}
                     >
                       Already have an account, SignIn
@@ -211,6 +218,7 @@ const SignUp = () => {
                 </>
               ) : (
                 <>
+                  {/* Sign In */}
                   <div style={{ textAlign: "center" }}>
                     <Typography variant="h5">
                       <b>SignIn</b>
@@ -257,7 +265,7 @@ const SignUp = () => {
                           startIcon={<Icon />}
                           variant="contained"
                         >
-                          {isSignup ? "Google Sign Up" : "Google Sign In"}
+                          {isSignUp ? "Google Sign Up" : "Google Sign In"}
                         </Button>
                       )}
                       onSuccess={googleSuccess}
@@ -275,7 +283,7 @@ const SignUp = () => {
                         boxShadow: "none",
                       }}
                       onClick={() => {
-                        setIsSignup(true);
+                        setIsSignUp(true);
                       }}
                     >
                       Don't have an account, SignUp

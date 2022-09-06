@@ -1,3 +1,3 @@
 import { combineReducers } from "redux";
-
-export const reducers = combineReducers({});
+import user from "./user";
+export const reducers = combineReducers({ user });
