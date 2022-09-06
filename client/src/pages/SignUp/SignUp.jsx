@@ -1,12 +1,16 @@
 import { Button, Grid, Paper, Typography } from "@mui/material";
+import { useGoogleLogin } from "@react-oauth/google";
+import jwt_decode from "jwt-decode";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signIn, signUp } from "../../actions/user";
+import { AUTH } from "../../constants/actionTypes";
 import Logo from "../../img/logo.png";
 import Input from "./Input";
+import { GoogleLogin } from "@react-oauth/google";
 import "./styles.css";
-// import { GoogleLogin } from "react-google-login";
+import axios from "axios";
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -38,19 +42,37 @@ const SignUp = () => {
       dispatch(signIn(formData, navigate));
     }
   };
-  // const googleSuccess = (res) => {
-  //   const result = res?.profileObj;
-  //   const token = res?.tokenId;
-  //   try {
-  //     dispatch({ type: AUTH, data: { result, token } });
-  //     navigate("/");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // const googleFailure = () => {
-  //   console.log("Google Sign In Failed");
-  // };
+  const googleSuccess = (res) => {
+    const result = res?.profileObj;
+    const token = res?.tokenId;
+    try {
+      dispatch({ type: AUTH, data: { result, token } });
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const googleFailure = () => {
+    console.log("Google Sign In Failed");
+  };
+  const login = useGoogleLogin({
+    onSuccess: async (response) => {
+      try {
+        const res = await axios.get(
+          "https://www.googleapis.com/oauth2/v3/userinfo",
+          {
+            headers: {
+              Authorization: `Bearer ${response.access_token}`,
+            },
+          }
+        );
+
+        googleSuccess(res.data);
+      } catch (err) {
+        googleFailure();
+      }
+    },
+  });
 
   /*------------------------------------------------*/
   return (
@@ -180,23 +202,19 @@ const SignUp = () => {
                     >
                       Submit
                     </Button>
+                    <button onClick={login}>
+                      <i class="fa-brands fa-google"></i>
+                      Continue with google
+                    </button>
                     {/* <GoogleLogin
-                      clientId={clientId}
-                      render={(renderProps) => (
-                        <Button
-                          fullWidth
-                          color="primary"
-                          onClick={renderProps.onClick}
-                          disabled={renderProps.disabled}
-                          startIcon={<Icon />}
-                          variant="contained"
-                        >
-                          {isSignUp ? "Google Sign Up" : "Google Sign In"}
-                        </Button>
-                      )}
-                      onSuccess={googleSuccess}
-                      onFailure={googleFailure}
-                      cookiePolicy="single_host_origin"
+                      onSuccess={(credentialResponse) => {
+                        console.log(credentialResponse.credential);
+                        var decoded = jwt_decode(credentialResponse.credential);
+                        console.log(decoded);
+                      }}
+                      onError={() => {
+                        console.log("Login Failed");
+                      }}
                     /> */}
                     <Button
                       variant="contained"
