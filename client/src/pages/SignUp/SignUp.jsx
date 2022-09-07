@@ -56,18 +56,11 @@ const SignUp = () => {
     console.log("Google Sign In Failed");
   };
   const login = useGoogleLogin({
-    onSuccess: async (response) => {
+    onSuccess: (credentialResponse) => {
       try {
-        const res = await axios.get(
-          "https://www.googleapis.com/oauth2/v3/userinfo",
-          {
-            headers: {
-              Authorization: `Bearer ${response.access_token}`,
-            },
-          }
-        );
-
-        googleSuccess(res.data);
+        console.log(credentialResponse.credential);
+        var decoded = jwt_decode(credentialResponse.credential);
+        console.log(decoded);
       } catch (err) {
         googleFailure();
       }
@@ -206,7 +199,7 @@ const SignUp = () => {
                       <i class="fa-brands fa-google"></i>
                       Continue with google
                     </button>
-                    {/* <GoogleLogin
+                    <GoogleLogin
                       onSuccess={(credentialResponse) => {
                         console.log(credentialResponse.credential);
                         var decoded = jwt_decode(credentialResponse.credential);
@@ -215,7 +208,7 @@ const SignUp = () => {
                       onError={() => {
                         console.log("Login Failed");
                       }}
-                    /> */}
+                    />
                     <Button
                       variant="contained"
                       fullWidth

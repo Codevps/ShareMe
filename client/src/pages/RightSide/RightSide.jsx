@@ -66,7 +66,7 @@ const RightSide = () => {
                 variant="h6"
                 style={{ textTransform: "uppercase", color: "black" }}
               >
-                <b>{user?.result.name.split(" ")[0]}</b>
+                {/* <b>{user?.result.name.split(" ")[0]}</b> */}
               </p>
               {user ? (
                 <Button
