@@ -7,9 +7,20 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import EditProfileModal from "./EditProfileModal";
-const EditProfile = () => {
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { LOGOUT } from "../../../../../constants/actionTypes";
+import EditProfileModal1 from "./EditProfileModal1";
+const EditProfile1 = () => {
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const logout = () => {
+    dispatch({ type: LOGOUT });
+    setUser(null);
+    navigate("/");
+  };
   return (
     <div>
       <Card
@@ -33,13 +44,13 @@ const EditProfile = () => {
             }}
           >
             <Typography variant="h5">
-              <b>Your Info:</b>
+              <b>Personal Info:</b>
             </Typography>
             <IconButton onClick={() => setOpen(true)}>
               <EditRoundedIcon style={{ color: "green" }} />
             </IconButton>
           </div>
-          <EditProfileModal open={open} setOpen={setOpen} />
+          <EditProfileModal1 open={open} setOpen={setOpen} />
 
           <div
             style={{
@@ -48,10 +59,9 @@ const EditProfile = () => {
               flexDirection: "column",
             }}
           >
-            <Typography>Status in RelationShip</Typography>
-            <Typography>Lives in Multan</Typography>
-            <Typography>Works at Zhc</Typography>
-            <Typography>Much More : {"<<MAKE IT LIKE LINKED IN>>"}</Typography>
+            <Typography>{user?.result.name}</Typography>
+            <Typography>{user?.result.email}</Typography>
+            <Typography>{user?.result.contact}</Typography>
           </div>
         </CardContent>
         <CardActions>
@@ -63,7 +73,9 @@ const EditProfile = () => {
               padding: "auto",
               textTransform: "uppercase",
             }}
-            onClick={() => {}}
+            onClick={() => {
+              logout();
+            }}
           >
             <b>Logout</b>
           </Typography>
@@ -73,4 +85,4 @@ const EditProfile = () => {
   );
 };
 
-export default EditProfile;
+export default EditProfile1;

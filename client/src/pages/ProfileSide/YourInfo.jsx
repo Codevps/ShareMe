@@ -8,6 +8,7 @@ import FollowersModal from "./FollowersModal.jsx";
 
 const YourInfo = () => {
   const [open, setOpen] = useState(false);
+  const user = JSON.parse(localStorage.getItem("profile"));
   const navigate = useNavigate();
   return (
     <div>
@@ -109,7 +110,7 @@ const YourInfo = () => {
                 cursor: "pointer",
               }}
               onClick={() => {
-                navigate("/myprofile");
+                navigate(`/${user?.result._id}`);
               }}
             >
               <b> My Profile</b>

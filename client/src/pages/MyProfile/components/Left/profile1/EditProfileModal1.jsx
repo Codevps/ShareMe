@@ -2,22 +2,27 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Button, Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
 import FileBase from "react-file-base64";
-import Input from "./Input";
-import "./styles.css";
+import { useDispatch } from "react-redux";
+import { updateUserProfile } from "../../../../../actions/user";
+import Input from "../Input";
+import "../styles.css";
 
 const EditProfileModal = ({ open, setOpen }) => {
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
-    password: "",
-    confirmPassword: "",
+    contact: "",
   });
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e) => {
+    //put email as well to search
     e.preventDefault();
+    dispatch(updateUserProfile(user?.result._id, formData));
   };
   if (!open) return null;
   return (
@@ -63,38 +68,31 @@ const EditProfileModal = ({ open, setOpen }) => {
             <Input
               name="firstName"
               label="First Name"
-              placeHolder="Pratham"
+              placeholder="Pratham"
+              half
               handleChange={handleChange}
               autoFocus
-              half
             />
             <Input
               name="lastName"
               label="Last Name"
-              placeHolder="Sawant"
-              handleChange={handleChange}
+              placeholder="Sawant"
               half
-            />
-            <Input
-              name="profession"
-              label="Profession"
-              placeHolder="Influencer, Model, Developer"
               handleChange={handleChange}
             />
             <Input
-              name="location"
-              label="Lives in"
-              placeHolder="Mumbai,Delhi"
-              handleChange={handleChange}
-              autoFocus
+              name="email"
+              label="Email"
+              placeholder="codevps07@gmail.com"
+              type="email"
               half
+              handleChange={handleChange}
             />
             <Input
-              name="country"
-              label="Country"
-              placeHolder="India, USA"
-              handleChange={handleChange}
+              name="contact"
+              label="Contact Number"
               half
+              handleChange={handleChange}
             />
             <div
               style={{

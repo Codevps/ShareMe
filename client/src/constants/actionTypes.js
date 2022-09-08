@@ -4,8 +4,9 @@ export const UPDATE = "UPDATE";
 export const DELETE = "DELETE";
 export const LIKE = "LIKE";
 
-export const FETCH_BY_SEARCH = "FETCH_BY_SEARCH";
-export const FETCH_POST = "FETCH_POST";
+export const FETCH_PROFILE = "FETCH_PROFILE";
+export const UPDATE_PROFILE = "UPDATE_PROFILE";
+export const CREATE_PROFILE = "CREATE_PROFILE";
 
 export const AUTH = "AUTH";
 export const LOGOUT = "LOGOUT";

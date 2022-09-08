@@ -1,6 +1,6 @@
-import { AUTH, LOGOUT } from "../constants/actionTypes";
+import { AUTH, LOGOUT, UPDATE } from "../constants/actionTypes";
 
-const user = (state = { authData: null }, action) => {
+const user = (state = { authData: [] }, action) => {
   switch (action.type) {
     case AUTH:
       localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
@@ -8,6 +8,13 @@ const user = (state = { authData: null }, action) => {
     case LOGOUT:
       localStorage.clear();
       return { ...state, authData: null };
+    case UPDATE:
+      return {
+        ...state,
+        user: state.user.map((post) =>
+          post._id === action.payload._id ? action.payload : post
+        ),
+      };
     default:
       return state;
   }

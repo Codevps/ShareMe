@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import LogoSearch from "../../../LogoSearch/LogoSearch";
 import Followers from "../../../ProfileSide/Followers";
 import FollowersModal from "../../../ProfileSide/FollowersModal";
-import EditProfile from "./EditProfile";
+import EditProfile1 from "./profile1/EditProfile1";
+import EditProfile2 from "./profile2/EditProfile2";
 
 const Left = () => {
   const [open2, setOpen2] = useState(false);
@@ -11,7 +12,8 @@ const Left = () => {
   return (
     <div>
       <LogoSearch />
-      <EditProfile />
+      <EditProfile1 />
+      <EditProfile2 />
       <Followers />
       <div
         style={{

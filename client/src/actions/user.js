@@ -1,5 +1,5 @@
 import * as api from "../api";
-import { AUTH } from "../constants/actionTypes";
+import { AUTH, UPDATE } from "../constants/actionTypes";
 
 export const signIn = (formData, navigate) => async (dispatch) => {
   try {
@@ -16,6 +16,15 @@ export const signUp = (formData, navigate) => async (dispatch) => {
     const { data } = await api.signUp(formData);
     dispatch({ type: AUTH, data });
     navigate("/");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateUserProfile = (id, post) => async (dispatch) => {
+  try {
+    const { data } = await api.updateUserProfile(id, post);
+    dispatch({ type: UPDATE, payload: data });
   } catch (error) {
     console.log(error);
   }
