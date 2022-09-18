@@ -4,16 +4,15 @@ import LogoSearch from "../../../LogoSearch/LogoSearch";
 import Followers from "../../../ProfileSide/Followers";
 import FollowersModal from "../../../ProfileSide/FollowersModal";
 import EditProfile1 from "./profile1/EditProfile1";
-import EditProfile2 from "./profile2/EditProfile2";
 
 const Left = () => {
   const [open2, setOpen2] = useState(false);
+  const [currentId, setCurrentId] = useState("");
 
   return (
     <div>
       <LogoSearch />
-      <EditProfile1 />
-      <EditProfile2 />
+      <EditProfile1 currentId={currentId} setCurrentId={setCurrentId} />
       <Followers />
       <div
         style={{

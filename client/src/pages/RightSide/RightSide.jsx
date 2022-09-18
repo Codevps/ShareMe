@@ -1,6 +1,7 @@
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import { Button, IconButton, Paper } from "@mui/material";
-import React, { useState } from "react";
+import decode from "jwt-decode";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { LOGOUT } from "../../constants/actionTypes";
@@ -18,6 +19,19 @@ const RightSide = () => {
     setUser(null);
     navigate("/");
   };
+  useEffect(() => {
+    const token = user?.token;
+
+    if (token) {
+      const decodedToken = decode(token);
+
+      if (decodedToken.exp * 1000 < new Date().getTime()) {
+        logout();
+      }
+    }
+
+    setUser(JSON.parse(localStorage.getItem("profile")));
+  }, []);
   return (
     <div className="RightSide">
       <div

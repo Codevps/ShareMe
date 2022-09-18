@@ -28,8 +28,29 @@ export const signIn = async (req, res) => {
 };
 
 export const signUp = async (req, res) => {
-  const { email, contact, password, firstName, lastName, confirmPassword } =
-    req.body;
+  const {
+    email,
+    contact,
+    password,
+    firstName,
+    lastName,
+    confirmPassword,
+    profession,
+    working,
+    experience,
+    skills,
+    technicalSkills,
+    location,
+    country,
+    education,
+    degree,
+    institute,
+    profilePhoto,
+    coverPhoto,
+    followers,
+    following,
+    posts,
+  } = req.body;
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) res.status(404).json({ message: "User already exist!" });
@@ -42,6 +63,21 @@ export const signUp = async (req, res) => {
       password: hashedPassword,
       contact,
       name: `${firstName} ${lastName}`,
+      profession,
+      working,
+      experience,
+      skills,
+      technicalSkills,
+      location,
+      country,
+      education,
+      degree,
+      institute,
+      profilePhoto,
+      coverPhoto,
+      followers,
+      following,
+      posts,
     });
 
     const token = jwt.sign({ email: result.email, id: result._id }, secret, {
@@ -67,6 +103,16 @@ export const updateUserProfile = async (req, res) => {
     }
   );
   res.json(updatedUserProfile);
+};
+
+export const getUserProfile = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const post = await UserProfile.findById(id);
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
 };
 
 // export const getUser = async (req, res) => {

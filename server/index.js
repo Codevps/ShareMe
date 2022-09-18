@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import userRouter from "./routes/user.js";
-import profileRouter from "./routes/profile.js";
+// import profileRouter from "./routes/profile.js";
 import { CONNECTION_URL } from "./secret.js";
 
 const app = express();
@@ -11,7 +11,7 @@ app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 
 app.use("/user", userRouter);
-app.use("/user/profile", profileRouter);
+// app.use("/user/profile", profileRouter);
 
 const PORT = process.env.PORT || 5000;
 
