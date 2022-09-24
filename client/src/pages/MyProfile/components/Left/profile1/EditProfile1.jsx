@@ -16,6 +16,7 @@ import EditProfileModal1 from "./EditProfileModal1";
 
 const EditProfile1 = ({ currentId, setCurrentId }) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
@@ -27,7 +28,6 @@ const EditProfile1 = ({ currentId, setCurrentId }) => {
   };
   const edit = () => {
     setOpen(true);
-    setCurrentId(user?.result._id);
   };
 
   return (
@@ -78,10 +78,10 @@ const EditProfile1 = ({ currentId, setCurrentId }) => {
               <b>Personal Info</b>:
             </Typography>
             <Typography>
-              <b>First Name:</b> {user?.result.name[0]}
+              <b>First Name:</b> {user?.result.firstName}
             </Typography>
             <Typography>
-              <b>Last Name:</b> {user?.result.name[0]}
+              <b>Last Name:</b> {user?.result.lastName}
             </Typography>
             <Typography>
               <b>Email:</b> {user?.result.email}

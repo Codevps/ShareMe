@@ -22,5 +22,5 @@ API.interceptors.request.use((req) => {
 export const signIn = (formData) => API.post("/user/signIn", formData);
 export const signUp = (formData) => API.post("/user/signUp", formData);
 export const updateUserProfile = (id, updatedUserProfile) =>
-  API.put(`/user/${id}`, updatedUserProfile);
+  API.patch(`/user/${id}`, updatedUserProfile);
 export const fetchUserProfile = (id) => API.get(`/user/profile/${id}`);

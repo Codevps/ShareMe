@@ -92,12 +92,12 @@ export const signUp = async (req, res) => {
 
 export const updateUserProfile = async (req, res) => {
   const { id: _id } = req.params;
-  const user = req.body;
+  const profile = req.body;
   if (!mongoose.Types.ObjectId.isValid(_id))
     return res.status(404).send("No user available with this id,Invalid Id");
   const updatedUserProfile = await User.findByIdAndUpdate(
     _id,
-    { ...user, _id },
+    { ...profile, _id },
     {
       new: true,
     }
@@ -108,7 +108,7 @@ export const updateUserProfile = async (req, res) => {
 export const getUserProfile = async (req, res) => {
   const { id } = req.params;
   try {
-    const post = await UserProfile.findById(id);
+    const post = await User.findById(id);
     res.status(200).json(post);
   } catch (error) {
     res.status(404).json({ message: error.message });

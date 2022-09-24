@@ -3,11 +3,12 @@ import { Button, Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import FileBase from "react-file-base64";
 import { useDispatch } from "react-redux";
-import { updateUserProfile, getProfile } from "../../../../../actions/user";
 import Input from "../Input";
 import "../styles.css";
+import { updateUserProfile } from "../../../../../actions/user";
 
 const EditProfileModal = ({ open, setOpen, currentId, setCurrentId }) => {
+  const user = JSON.parse(localStorage.getItem("profile"));
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     firstName: "",
@@ -36,19 +37,21 @@ const EditProfileModal = ({ open, setOpen, currentId, setCurrentId }) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(getProfile(currentId));
-    //put email as well to search
-    // const newFormData = {
-    //   name: `${formData.firstName} ${formData.lastName}`,
-    //   email: formData.email,
-    //   contact: formData.contact,
-    // };
-    // console.log(user?.result._id);
-    // dispatch(updateUserProfile(user?.result._id, newFormData));
+    dispatch(
+      updateUserProfile(user?.result._id, {
+        ...formData,
+        name: `${formData.firstName} ${formData.lastName}`,
+      })
+    );
   };
-  console.log();
-
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (user)
+      setFormData({
+        ...user?.result,
+        firstName: `${user?.result.name.split(" ")[0]}`,
+        lastName: `${user?.result.name.split(" ")[1]}`,
+      });
+  }, []);
   if (!open) return null;
 
   return (
@@ -119,6 +122,7 @@ const EditProfileModal = ({ open, setOpen, currentId, setCurrentId }) => {
                   label="First Name"
                   placeholder="Pratham"
                   half
+                  value={formData.firstName}
                   handleChange={handleChange}
                   autoFocus
                 />
@@ -128,6 +132,7 @@ const EditProfileModal = ({ open, setOpen, currentId, setCurrentId }) => {
                   placeholder="Sawant"
                   half
                   handleChange={handleChange}
+                  value={formData.lastName}
                 />
                 <Input
                   name="email"
@@ -136,37 +141,29 @@ const EditProfileModal = ({ open, setOpen, currentId, setCurrentId }) => {
                   type="email"
                   half
                   handleChange={handleChange}
+                  value={formData.email}
                 />
                 <Input
                   name="contact"
                   label="Contact Number"
                   half
                   handleChange={handleChange}
-                />{" "}
-                <Input
-                  name="contact"
-                  label="Contact Number"
-                  half
-                  handleChange={handleChange}
-                />{" "}
-                <Input
-                  name="contact"
-                  label="Contact Number"
-                  half
-                  handleChange={handleChange}
-                />{" "}
+                  value={formData.contact}
+                />
                 <Input
                   name="location"
                   label="Town/City"
                   half
                   handleChange={handleChange}
-                />{" "}
+                  value={formData.location}
+                />
                 <Input
                   name="country"
                   label="Country"
                   half
                   handleChange={handleChange}
-                />{" "}
+                  value={formData.country}
+                />
                 <Typography
                   variant="h6"
                   style={{
@@ -181,26 +178,30 @@ const EditProfileModal = ({ open, setOpen, currentId, setCurrentId }) => {
                   name="profession"
                   label="Profession"
                   handleChange={handleChange}
-                />{" "}
+                  value={formData.profession}
+                />
                 <Input
                   name="working"
                   label="Working At"
                   half
                   handleChange={handleChange}
-                />{" "}
+                  value={formData.working}
+                />
                 <Input
                   name="experience"
                   label="Experience"
                   half
                   handleChange={handleChange}
-                />{" "}
+                  value={formData.experience}
+                />
                 {/* use Array and mapping technique seperate with , */}
                 <Input
                   name="skills"
                   label="Skills"
                   half
                   handleChange={handleChange}
-                />{" "}
+                  value={formData.skills}
+                />
                 {/* use Array and mapping technique seperate with , */}
                 <Input
                   name="technicalSkills"
@@ -208,7 +209,8 @@ const EditProfileModal = ({ open, setOpen, currentId, setCurrentId }) => {
                   half
                   placeholder={"Language or circuits or any other stuff"}
                   handleChange={handleChange}
-                />{" "}
+                  value={formData.technicalSkills}
+                />
                 <Typography
                   variant="h6"
                   style={{
@@ -224,17 +226,20 @@ const EditProfileModal = ({ open, setOpen, currentId, setCurrentId }) => {
                   label="Education:Degree/Course"
                   placeholder={"Engineering, Medic, Arts, Commerce"}
                   handleChange={handleChange}
-                />{" "}
+                  value={formData.education}
+                />
                 <Input
                   name="degree"
                   label="Name of Degree "
                   handleChange={handleChange}
-                />{" "}
+                  value={formData.degree}
+                />
                 <Input
                   name="institute"
                   label="Name of Institute"
                   handleChange={handleChange}
-                />{" "}
+                  value={formData.institute}
+                />
                 <div
                   style={{
                     padding: "auto",
@@ -296,10 +301,10 @@ const EditProfileModal = ({ open, setOpen, currentId, setCurrentId }) => {
                   <Button
                     variant="contained"
                     style={{ color: "white", background: "black" }}
-                    onClick={() => {}}
+                    onClick={() => setOpen(false)}
                     fullWidth
                   >
-                    Clear
+                    Cancel
                   </Button>
                 </Grid>
               </Grid>

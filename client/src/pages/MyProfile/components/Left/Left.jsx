@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import React, { useState } from "react";
+import user from "../../../../reducers/user";
 import LogoSearch from "../../../LogoSearch/LogoSearch";
 import Followers from "../../../ProfileSide/Followers";
 import FollowersModal from "../../../ProfileSide/FollowersModal";

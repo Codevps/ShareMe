@@ -8,17 +8,19 @@ const Input = ({
   type,
   autoFocus,
   placeholder,
+  value,
 }) => {
   return (
     <Grid item xs={12} sm={half ? 6 : 12}>
       <TextField
-        placeholder={placeholder}
         name={name}
         onChange={handleChange}
+        placeholder={placeholder}
         required
         variant="outlined"
         label={label}
         fullWidth
+        value={value}
         type={type}
         autoFocus={autoFocus}
       />

@@ -39,6 +39,7 @@ const FollowersModal = ({ open, setOpen, setTruth }) => {
               top: "1rem",
               right: "1rem",
             }}
+            onKeyPress={() => setOpen(false)}
             onClick={() => setOpen(false)}
           >
             <CloseIcon />
