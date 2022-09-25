@@ -214,7 +214,7 @@ const SignUp = () => {
                   Submit
                 </Button>
                 {/* <button onClick={login}>
-                  <i class="fa-brands fa-google"></i>
+                  <i className="fa-brands fa-google"></i>
                   Continue with google
                 </button>
                 <GoogleLogin

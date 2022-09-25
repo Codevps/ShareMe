@@ -6,14 +6,14 @@ import Followers from "../../../ProfileSide/Followers";
 import FollowersModal from "../../../ProfileSide/FollowersModal";
 import EditProfile1 from "./profile1/EditProfile1";
 
-const Left = () => {
+const Left = ({}) => {
   const [open2, setOpen2] = useState(false);
   const [currentId, setCurrentId] = useState("");
 
   return (
     <div>
       <LogoSearch />
-      <EditProfile1 currentId={currentId} setCurrentId={setCurrentId} />
+      <EditProfile1 />
       <Followers />
       <div
         style={{

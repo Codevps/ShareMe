@@ -1,9 +1,9 @@
 import * as api from "../api";
 import { AUTH, FETCH_PROFILE, UPDATE_PROFILE } from "../constants/actionTypes";
 
-export const getProfile = (id) => async (dispatch) => {
+export const getProfile = (id, navigate) => async (dispatch) => {
   try {
-    const { data } = await api.fetchUserProfile(id);
+    const { data } = await api.getUserProfile(id);
     dispatch({ type: FETCH_PROFILE, payload: data });
   } catch (error) {
     console.log(error);
@@ -29,9 +29,9 @@ export const signUp = (formData, navigate) => async (dispatch) => {
   }
 };
 
-export const updateUserProfile = (id, post) => async (dispatch) => {
+export const updateUserProfile = (id, formData) => async (dispatch) => {
   try {
-    const { data } = await api.updateUserProfile(id, post);
+    const { data } = await api.updateUserProfile(id, formData);
     dispatch({ type: UPDATE_PROFILE, payload: data });
   } catch (error) {
     console.log(error);

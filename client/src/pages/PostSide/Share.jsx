@@ -13,10 +13,19 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
-import profile from "../../img/profileImg.jpg";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfile } from "../../actions/user";
+// import profile from "../../img/profileImg.jpg";
 import "./styles.css";
 const Share = ({ open, setOpen }) => {
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const profile = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProfile(user?.result._id));
+  }, []);
+
   return (
     <div style={{ backgroundColor: "transparent" }}>
       <Card
@@ -46,7 +55,7 @@ const Share = ({ open, setOpen }) => {
             }}
           >
             <CardMedia
-              image={profile}
+              image={profile?.authData.profilePhoto}
               style={{
                 marginLeft: "1rem",
                 height: "4.5rem",

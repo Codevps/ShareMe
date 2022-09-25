@@ -6,10 +6,12 @@ import { useDispatch } from "react-redux";
 import Input from "../Input";
 import "../styles.css";
 import { updateUserProfile } from "../../../../../actions/user";
+import { Navigate, useNavigate } from "react-router-dom";
 
-const EditProfileModal = ({ open, setOpen, currentId, setCurrentId }) => {
-  const user = JSON.parse(localStorage.getItem("profile"));
+const EditProfileModal = ({ open, setOpen, profile }) => {
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -43,13 +45,14 @@ const EditProfileModal = ({ open, setOpen, currentId, setCurrentId }) => {
         name: `${formData.firstName} ${formData.lastName}`,
       })
     );
+    navigate("/");
   };
   useEffect(() => {
     if (user)
       setFormData({
-        ...user?.result,
-        firstName: `${user?.result.name.split(" ")[0]}`,
-        lastName: `${user?.result.name.split(" ")[1]}`,
+        ...profile,
+        firstName: `${profile.name.split(" ")[0]}`,
+        lastName: `${profile.name.split(" ")[1]}`,
       });
   }, []);
   if (!open) return null;

@@ -9,14 +9,16 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { LOGOUT } from "../../../../../constants/actionTypes";
 import EditProfileModal1 from "./EditProfileModal1";
-
-const EditProfile1 = ({ currentId, setCurrentId }) => {
+import { getProfile } from "../../../../../actions/user";
+const EditProfile1 = ({}) => {
+  const profile = useSelector((state) => state.user);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
-
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
@@ -29,6 +31,9 @@ const EditProfile1 = ({ currentId, setCurrentId }) => {
   const edit = () => {
     setOpen(true);
   };
+  useEffect(() => {
+    dispatch(getProfile(user?.result._id));
+  }, []);
 
   return (
     <div>
@@ -64,8 +69,7 @@ const EditProfile1 = ({ currentId, setCurrentId }) => {
           <EditProfileModal1
             open={open}
             setOpen={setOpen}
-            currentId={currentId}
-            setCurrentId={setCurrentId}
+            profile={profile?.authData}
           />
           <div
             style={{
@@ -78,22 +82,19 @@ const EditProfile1 = ({ currentId, setCurrentId }) => {
               <b>Personal Info</b>:
             </Typography>
             <Typography>
-              <b>First Name:</b> {user?.result.firstName}
+              <b>First Name:</b> {profile?.authData.name}
             </Typography>
             <Typography>
-              <b>Last Name:</b> {user?.result.lastName}
+              <b>Email:</b> {profile.authData.email}
             </Typography>
             <Typography>
-              <b>Email:</b> {user?.result.email}
+              <b>Contact:</b> {profile.authData.contact}
             </Typography>
             <Typography>
-              <b>Contact:</b> {user?.result.contact}
+              <b>Town/City</b>: {profile.authData.location}
             </Typography>
             <Typography>
-              <b>Town/City</b>: {user?.result.location}
-            </Typography>
-            <Typography>
-              <b>Country:</b> {user?.result.country}
+              <b>Country:</b> {profile.authData.country}
             </Typography>
           </div>
           {show && (
@@ -111,17 +112,21 @@ const EditProfile1 = ({ currentId, setCurrentId }) => {
                 >
                   <b>Professional Info</b>:
                 </Typography>
-                <Typography>Profession: {user?.result.profession}</Typography>
-                <Typography>Working At: {user?.result.working}</Typography>
-                <Typography>Experience: {user?.result.experience}</Typography>
+                <Typography>
+                  Profession: {profile.authData.profession}
+                </Typography>
+                <Typography>Working At: {profile.authData.working}</Typography>
+                <Typography>
+                  Experience: {profile.authData.experience}
+                </Typography>
                 <Typography>
                   Skills: useMap function
-                  {user?.result.skills}
+                  {profile.authData.skills}
                   skills.map::with bullet points in a line
                 </Typography>
                 <Typography>
                   Skills: useMap function
-                  {user?.result.technicalSkills}
+                  {profile.authData.technicalSkills}
                   technicalSkills.map::with bullet points in a line
                 </Typography>
               </div>
@@ -139,13 +144,13 @@ const EditProfile1 = ({ currentId, setCurrentId }) => {
                   <b>Educational/Background Info</b>:
                 </Typography>
                 <Typography>
-                  Education till: {user?.result.education}
+                  Education till: {profile.authData.education}
                 </Typography>
                 {/* could be 11 12 degree med other */}
                 {/* if degree then degree in if med then med int if other then specify  */}
-                <Typography>Degree in: {user?.result.degree}</Typography>
+                <Typography>Degree in: {profile.authData.degree}</Typography>
                 <Typography>
-                  Name of Institute: {user?.result.institute}
+                  Name of Institute: {profile.authData.institute}
                 </Typography>
               </div>
             </>

@@ -54,14 +54,14 @@ const Post = () => {
             <IconButton
               style={{ backgroundColor: "transparent", color: "green" }}
             >
-              <i class="fa-regular fa-message"></i>
+              <i className="fa-regular fa-message"></i>
             </IconButton>
           </Tooltip>
           <Tooltip title="Share with friends">
             <IconButton
               style={{ backgroundColor: "transparent", color: "#263238" }}
             >
-              <i class="fa-solid fa-paper-plane"></i>
+              <i className="fa-solid fa-paper-plane"></i>
             </IconButton>
           </Tooltip>
         </CardActions>

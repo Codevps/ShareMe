@@ -2,14 +2,12 @@ import React from "react";
 import Share from "./Share";
 import Post from "../Posts/Post/Post.jsx";
 import "./styles.css";
-const PostSide = () => {
+const PostSide = ({ profile }) => {
   return (
     <div className="PostSide">
       <div>
         <Share />
         <Post />
-        {/* defined for user: */}
-        {/* profile photo here: */}
       </div>
     </div>
   );

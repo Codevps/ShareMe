@@ -1,8 +1,6 @@
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import React from "react";
-import cover from "../../../../img/cover.jpg";
-import profile from "../../../../img/profileImg.jpg";
-const HeadInfo = () => {
+const HeadInfo = ({ profile }) => {
   return (
     <div>
       <Card
@@ -17,7 +15,7 @@ const HeadInfo = () => {
         }}
       >
         <CardMedia
-          image={cover}
+          image={profile.coverPhoto}
           style={{
             height: 0,
             paddingTop: "46.25%",
@@ -31,7 +29,7 @@ const HeadInfo = () => {
           }}
         >
           <CardMedia
-            image={profile}
+            image={profile.profilePhoto}
             style={{
               height: "10rem",
               width: "10rem",
@@ -46,10 +44,10 @@ const HeadInfo = () => {
         <CardContent>
           <div style={{ marginTop: "4.6rem", textAlign: "center" }}>
             <Typography variant="h5">
-              <b>Pratham Sawant</b>
+              <b>{profile.name}</b>
             </Typography>
             <Typography variant="body1" gutterBottom>
-              Senior FullStack Developer
+              {profile.profession}
             </Typography>
           </div>
           <div
@@ -73,7 +71,7 @@ const HeadInfo = () => {
               }}
             >
               <Typography variant="h6">
-                <b>7899</b>
+                <b>{profile.followers}</b>
               </Typography>
               <Typography variant="body1">Followers</Typography>
             </div>
@@ -88,7 +86,7 @@ const HeadInfo = () => {
               }}
             >
               <Typography variant="h6">
-                <b>91</b>
+                <b>{profile.following}</b>
               </Typography>
               <Typography variant="body1">Following</Typography>
             </div>
@@ -99,7 +97,7 @@ const HeadInfo = () => {
               }}
             >
               <Typography variant="h6">
-                <b>5</b>
+                <b>{profile.posts.length}</b>
               </Typography>
               <Typography variant="body1">Posts</Typography>
             </div>

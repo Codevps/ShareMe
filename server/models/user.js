@@ -2,8 +2,6 @@ import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema({
   name: { type: String, required: true },
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
   email: { type: String, required: true },
   contact: { type: Number, required: true },
   password: { type: String, required: true },
@@ -19,8 +17,8 @@ const userSchema = mongoose.Schema({
   institute: { type: String },
   profilePhoto: { type: String },
   coverPhoto: { type: String },
-  followers: { type: String },
-  following: { type: String },
+  followers: { type: Number, default: 0 },
+  following: { type: Number, default: 0 },
   posts: { type: String },
 });
 

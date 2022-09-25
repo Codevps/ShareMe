@@ -2,14 +2,15 @@ import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import cover from "../../img/cover.jpg";
-import profile from "../../img/profileImg.jpg";
+import profileImg from "../../img/profileImg.jpg";
 import Followers from "./Followers";
 import FollowersModal from "./FollowersModal.jsx";
 
-const YourInfo = () => {
+const YourInfo = ({ profile }) => {
   const [open, setOpen] = useState(false);
   const user = JSON.parse(localStorage.getItem("profile"));
   const navigate = useNavigate();
+
   return (
     <div>
       <Card
@@ -23,7 +24,7 @@ const YourInfo = () => {
         }}
       >
         <CardMedia
-          image={cover}
+          image={profile.coverPhoto}
           style={{
             height: 0,
             paddingTop: "46.25%",
@@ -37,7 +38,7 @@ const YourInfo = () => {
           }}
         >
           <CardMedia
-            image={profile}
+            image={profile.profilePhoto}
             style={{
               height: 0,
               paddingTop: "46.25%",
@@ -51,10 +52,10 @@ const YourInfo = () => {
         <CardContent>
           <div style={{ marginTop: "4.6rem", textAlign: "center" }}>
             <Typography variant="h5">
-              <b>Pratham Sawant</b>
+              <b>{profile.name}</b>
             </Typography>
             <Typography variant="body1" gutterBottom>
-              Senior FullStack Developer
+              {profile.profession}
             </Typography>
           </div>
           <div
@@ -80,7 +81,7 @@ const YourInfo = () => {
               }}
             >
               <Typography variant="h6">
-                <b>7899</b>
+                <b>{profile.followers}</b>
               </Typography>
               <Typography variant="body1">Followers</Typography>
             </div>
@@ -91,7 +92,7 @@ const YourInfo = () => {
               }}
             >
               <Typography variant="h6">
-                <b>91</b>
+                <b>{profile.following}</b>
               </Typography>
               <Typography variant="body1">Following</Typography>
             </div>
