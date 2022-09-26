@@ -7,20 +7,31 @@ import {
   UPDATE,
 } from "../constants/actionTypes";
 
-const posts = (state = { isLoading: true, posts: [] }, action) => {
+const posts = (state = { posts: [] }, action) => {
   switch (action.type) {
-    case COMMENT:
-      return {};
     case FETCH_ALL:
-      return {};
-    case LIKE:
-      return {};
+      return { ...state, posts: action.payload };
     case CREATE:
-      return {};
-    case UPDATE:
-      return {};
+      return { ...state, posts: [...state.posts, action.payload] };
     case DELETE:
-      return {};
+      return {
+        ...state,
+        posts: state.posts.filter((post) => post._id !== action.payload),
+      };
+    case LIKE:
+      return {
+        ...state,
+        posts: state.posts.map((post) =>
+          post._id === action.payload._id ? action.payload : post
+        ),
+      };
+    case COMMENT:
+      return {
+        ...state,
+        posts: state.posts.map((post) =>
+          post._id === action.payload._id ? action.payload : post
+        ),
+      };
     default:
       return state;
   }

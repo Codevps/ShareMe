@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 const postSchema = mongoose.Schema({
-  user: { type: String },
+  creator: { type: String },
   photo: { type: String },
   video: { type: String },
   location: { type: String },

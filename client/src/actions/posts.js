@@ -7,8 +7,49 @@ import {
   COMMENT,
   LIKE,
 } from "../constants/actionTypes";
-export const getPosts = () => async (dispatch) => {};
-export const createPost = () => async (dispatch) => {};
-export const deletePost = () => async (dispatch) => {};
-export const likePost = () => async (dispatch) => {};
-export const commentPost = () => async (dispatch) => {};
+export const getPosts = () => async (dispatch) => {
+  try {
+    const { data } = await api.fetchPosts();
+    dispatch({
+      type: FETCH_ALL,
+      payload: { data },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const createPost = (post) => async (dispatch) => {
+  try {
+    const { data } = await api.createPost(post);
+    dispatch({
+      type: CREATE,
+      payload: data,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const deletePost = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.deletePost(id);
+    dispatch({ type: DELETE, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const likePost = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.likePost(id);
+    dispatch({ type: LIKE, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const commentPost = (value, id) => async (dispatch) => {
+  try {
+    const { data } = await api.commentPost(value, id);
+    dispatch({ type: COMMENT, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
