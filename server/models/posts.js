@@ -20,6 +20,10 @@ const postSchema = mongoose.Schema({
   tags: [String],
   title: String,
   message: String,
+  createdAt: {
+    type: Date,
+    default: new Date(),
+  },
 });
 
 export default mongoose.model("PostSchema", postSchema);

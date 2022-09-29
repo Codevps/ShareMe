@@ -7,7 +7,7 @@ import MyProfile from "./pages/MyProfile/MyProfile.jsx";
 import SignUp from "./pages/SignUp/SignUp.jsx";
 
 const App = () => {
-  // const user = JSON.parse(localStorage.getItem("profile"));
+  const user = JSON.parse(localStorage.getItem("profile"));
   return (
     <div className="App">
       <div className="blur" style={{ top: "-10%", right: "0" }}></div>
@@ -15,6 +15,11 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" exact element={<Navigate to="/home" />} />
+          {/* <Route
+            path="/home"
+            exact
+            element={user?.result._id ? <Home /> : <SignUp />}
+          /> */}
           <Route path="/home" exact element={<Home />} />
           <Route path="/postShare" exact element={<Share />} />
           <Route path="/:id" exact element={<MyProfile />} />
