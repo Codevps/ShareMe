@@ -4,7 +4,7 @@ const postSchema = mongoose.Schema({
   photo: { type: String },
   video: { type: String },
   location: { type: String },
-  time: { type: String },
+  date: { type: String },
   likes: {
     type: [String],
     default: [],

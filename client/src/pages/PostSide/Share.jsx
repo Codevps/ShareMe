@@ -17,8 +17,10 @@ import React, { useEffect, useState } from "react";
 import FileBase from "react-file-base64";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../../actions/user";
+import DatePicker from "react-datepicker";
 // import profile from "../../img/profileImg.jpg";
 import "./styles.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Share = ({ open, setOpen }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -28,16 +30,18 @@ const Share = ({ open, setOpen }) => {
   const [openTitle, setOpenTitle] = useState(false);
   const [openMessage, setOpenMessage] = useState(false);
   const [openLocation, setOpenLocation] = useState(false);
+  const [openDate, setOpenDate] = useState(false);
   const [openTags, setOpenTags] = useState(false);
   const [postData, setPostData] = useState({
     photo: "",
     video: "",
     location: "",
-    time: "",
+    date: "",
     tags: "",
     title: "",
     message: "",
   });
+
   const setValue = (value) => {
     if (value === "title") {
       setOpenTitle(true);
@@ -342,13 +346,36 @@ const Share = ({ open, setOpen }) => {
                 color: "#ffca28",
               }}
             >
-              <b>
-                <IconButton style={{ color: "#ffca28" }}>
+              <b
+                style={{
+                  color: "#ffca28",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <IconButton
+                  style={{
+                    color: "#ffca28",
+                    position: "relative",
+                  }}
+                  onClick={() => setOpenDate((prevOpenDate) => !prevOpenDate)}
+                >
                   <CalendarMonthIcon />
                   <p style={{ fontSize: "1rem", paddingLeft: "0.2rem" }}>
                     Schedule
                   </p>
                 </IconButton>
+                {openDate && (
+                  <div>
+                    <DatePicker
+                      selected={postData.date}
+                      onChange={(date) =>
+                        setPostData({ ...postData, date: date })
+                      }
+                    />
+                  </div>
+                )}
               </b>
             </Typography>
             <Button
