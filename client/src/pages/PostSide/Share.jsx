@@ -21,11 +21,12 @@ import DatePicker from "react-datepicker";
 // import profile from "../../img/profileImg.jpg";
 import "./styles.css";
 import "react-datepicker/dist/react-datepicker.css";
-import { createPost } from "../../actions/posts";
+import { createPost, getPosts } from "../../actions/posts";
 
 const Share = ({ open, setOpen }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const profile = useSelector((state) => state.user);
+  const posts = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const [image, setImage] = useState(false);
   const [openTitle, setOpenTitle] = useState(false);
@@ -43,7 +44,7 @@ const Share = ({ open, setOpen }) => {
     title: "",
     message: "",
   });
-
+  console.log(posts);
   const setValue = (value) => {
     if (value === "title") {
       setOpenTitle(true);
@@ -71,11 +72,11 @@ const Share = ({ open, setOpen }) => {
     setPostData({ ...postData, [e.target.name]: e.target.value });
   };
   const submit = () => {
-    console.log({ ...postData, name: user?.result?.name });
     dispatch(createPost({ ...postData, name: user?.result?.name }));
   };
   useEffect(() => {
     dispatch(getProfile(user?.result._id));
+    dispatch(getPosts());
   }, []);
 
   return (

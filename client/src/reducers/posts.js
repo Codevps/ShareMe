@@ -4,7 +4,6 @@ import {
   DELETE,
   FETCH_ALL,
   LIKE,
-  UPDATE,
 } from "../constants/actionTypes";
 
 const posts = (state = { posts: [] }, action) => {
