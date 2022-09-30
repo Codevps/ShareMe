@@ -21,6 +21,7 @@ import DatePicker from "react-datepicker";
 // import profile from "../../img/profileImg.jpg";
 import "./styles.css";
 import "react-datepicker/dist/react-datepicker.css";
+import { createPost } from "../../actions/posts";
 
 const Share = ({ open, setOpen }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -33,6 +34,7 @@ const Share = ({ open, setOpen }) => {
   const [openDate, setOpenDate] = useState(false);
   const [openTags, setOpenTags] = useState(false);
   const [postData, setPostData] = useState({
+    name: "",
     photo: "",
     video: "",
     location: "",
@@ -69,7 +71,8 @@ const Share = ({ open, setOpen }) => {
     setPostData({ ...postData, [e.target.name]: e.target.value });
   };
   const submit = () => {
-    console.log(postData);
+    console.log({ ...postData, name: user?.result?.name });
+    dispatch(createPost({ ...postData, name: user?.result?.name }));
   };
   useEffect(() => {
     dispatch(getProfile(user?.result._id));
