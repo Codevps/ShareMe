@@ -18,7 +18,6 @@ import FileBase from "react-file-base64";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../../actions/user";
 import DatePicker from "react-datepicker";
-// import profile from "../../img/profileImg.jpg";
 import "./styles.css";
 import "react-datepicker/dist/react-datepicker.css";
 import { createPost, getPosts } from "../../actions/posts";
@@ -26,7 +25,7 @@ import { createPost, getPosts } from "../../actions/posts";
 const Share = ({ open, setOpen }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const profile = useSelector((state) => state.user);
-  const posts = useSelector((state) => state.posts);
+  const posts = useSelector((state) => state.posts.posts);
   const dispatch = useDispatch();
   const [image, setImage] = useState(false);
   const [openTitle, setOpenTitle] = useState(false);
