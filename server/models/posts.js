@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 const postSchema = mongoose.Schema({
   creator: { type: String },
-  name: { type: String },
   photo: { type: String },
   video: { type: String },
   location: { type: String },
@@ -19,7 +18,6 @@ const postSchema = mongoose.Schema({
     default: new Date(),
   },
   tags: [String],
-  title: String,
   message: String,
   createdAt: {
     type: Date,

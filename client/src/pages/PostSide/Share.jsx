@@ -14,54 +14,41 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import FileBase from "react-file-base64";
 import { useDispatch, useSelector } from "react-redux";
+import { createPost } from "../../actions/posts";
 import { getProfile } from "../../actions/user";
-import DatePicker from "react-datepicker";
 import "./styles.css";
-import "react-datepicker/dist/react-datepicker.css";
-import { createPost, getPosts } from "../../actions/posts";
 
 const Share = ({ open, setOpen }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const profile = useSelector((state) => state.user);
-  const posts = useSelector((state) => state.posts.posts);
   const dispatch = useDispatch();
   const [image, setImage] = useState(false);
-  const [openTitle, setOpenTitle] = useState(false);
   const [openMessage, setOpenMessage] = useState(false);
   const [openLocation, setOpenLocation] = useState(false);
   const [openDate, setOpenDate] = useState(false);
   const [openTags, setOpenTags] = useState(false);
   const [postData, setPostData] = useState({
-    name: "",
     photo: "",
     video: "",
     location: "",
     date: "",
     tags: "",
-    title: "",
     message: "",
   });
-  console.log(posts);
   const setValue = (value) => {
-    if (value === "title") {
-      setOpenTitle(true);
-      setOpenTags(false);
-      setOpenMessage(false);
-      setOpenLocation(false);
-    } else if (value === "tags") {
-      setOpenTitle(false);
+    if (value === "tags") {
       setOpenTags(true);
       setOpenMessage(false);
       setOpenLocation(false);
     } else if (value === "message") {
-      setOpenTitle(false);
       setOpenTags(false);
       setOpenMessage(true);
       setOpenLocation(false);
     } else if (value === "location") {
-      setOpenTitle(false);
       setOpenTags(false);
       setOpenMessage(false);
       setOpenLocation(true);
@@ -71,13 +58,11 @@ const Share = ({ open, setOpen }) => {
     setPostData({ ...postData, [e.target.name]: e.target.value });
   };
   const submit = () => {
-    dispatch(createPost({ ...postData, name: user?.result?.name }));
+    dispatch(createPost(postData));
   };
   useEffect(() => {
     dispatch(getProfile(user?.result._id));
-    dispatch(getPosts());
   }, []);
-
   return (
     <div style={{ backgroundColor: "transparent" }}>
       <Card
@@ -133,16 +118,6 @@ const Share = ({ open, setOpen }) => {
                 </Button>
               )}
               <Button
-                onClick={() => setValue("title")}
-                style={{
-                  borderBottom: openTitle && "3px solid coral",
-                  borderRadius: "none",
-                  marginLeft: "1.3rem",
-                }}
-              >
-                Title
-              </Button>
-              <Button
                 onClick={() => setValue("tags")}
                 style={{
                   borderBottom: openTags && "3px solid coral",
@@ -173,26 +148,6 @@ const Share = ({ open, setOpen }) => {
                 Location
               </Button>
             </div>
-            {openTitle && (
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  paddingLeft: "1rem",
-                  alignItems: "center",
-                }}
-              >
-                <Typography style={{ paddingRight: "1rem" }}>Title:</Typography>
-                <TextField
-                  autoFocus
-                  variant="standard"
-                  name="title"
-                  placeholder="Title"
-                  onChange={handleChange}
-                  value={postData.title}
-                />
-              </div>
-            )}
             {openTags && (
               <div
                 style={{
