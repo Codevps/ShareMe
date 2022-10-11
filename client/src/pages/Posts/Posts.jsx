@@ -11,9 +11,18 @@ const Posts = () => {
     dispatch(getPosts());
   }, []);
   return (
-    <Grid container alignItems="stretch" spacing={3}>
+    <Grid
+      container
+      alignItems="stretch"
+      spacing={3}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        //  alignItems: "center"
+      }}
+    >
       {posts.map((post) => (
-        <Grid key={post._id} sm={12} md={6} lg={4} xl={3} item>
+        <Grid key={post._id} item>
           <Post post={post} />
         </Grid>
       ))}

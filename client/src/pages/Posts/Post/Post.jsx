@@ -69,7 +69,13 @@ const Post = ({ post }) => {
               </Typography>
             </div>
           </div>
-          <div style={{ marginLeft: "3rem", paddingTop: "0.5rem" }}>
+          <div
+            style={{
+              marginLeft: "1rem",
+              paddingTop: "0.7rem",
+              paddingBottom: "none",
+            }}
+          >
             <Typography>{post.message}</Typography>
           </div>
         </CardContent>
@@ -79,7 +85,7 @@ const Post = ({ post }) => {
             height: "60%",
             width: "auto",
             margin: "1rem",
-            marginTop: "none",
+            marginTop: "-0.5rem",
             borderRadius: "3%",
           }}
         />
@@ -120,11 +126,10 @@ const Post = ({ post }) => {
         <CardContent style={{ display: "flex", flexDirection: "column" }}>
           <Typography
             variant="body2"
-            style={{ color: "red", position: "relative", top: "-1.7rem" }}
+            style={{ color: "orange", position: "relative", top: "-1.7rem" }}
           >
-            23390
+            {post.likes.length}
           </Typography>
-          {/* comments will be only first or latest 2 */}
           <div>
             Comments:
             <Typography variant="body1" style={{ color: "grey" }}>
