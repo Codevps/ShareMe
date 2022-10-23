@@ -1,6 +1,7 @@
 import {
   AUTH,
   FETCH_PROFILE,
+  GET_USERS,
   LOGOUT,
   UPDATE_PROFILE,
 } from "../constants/actionTypes";
@@ -21,6 +22,8 @@ const user = (state = { authData: [] }, action) => {
         ),
       };
     case FETCH_PROFILE:
+      return { ...state, authData: action.payload };
+    case GET_USERS:
       return { ...state, authData: action.payload };
     default:
       return state;

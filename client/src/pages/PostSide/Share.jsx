@@ -110,7 +110,7 @@ const Share = ({ open, setOpen }) => {
                     position: "relative",
                     top: "-2rem",
                     color: "grey",
-                    left: "34rem",
+                    left: "18rem",
                   }}
                   onClick={() => setOpen(false)}
                 >
@@ -367,7 +367,7 @@ const Share = ({ open, setOpen }) => {
                       }}
                       src={postData.photo}
                       alt="image"
-                    />{" "}
+                    />
                     <Button
                       style={{
                         position: "relative",
@@ -378,7 +378,7 @@ const Share = ({ open, setOpen }) => {
                       onClick={() => setPostData({ ...postData, photo: "" })}
                     >
                       <CloseIcon />
-                    </Button>{" "}
+                    </Button>
                   </div>
                 ) : (
                   <FileBase

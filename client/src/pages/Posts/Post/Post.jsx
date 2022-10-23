@@ -1,3 +1,5 @@
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import {
@@ -9,13 +11,60 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { likePost } from "../../../actions/posts";
 import { getProfile } from "../../../actions/user";
 
 const Post = ({ post }) => {
+  const [saved, setSaved] = useState(false);
+  const [likes, setLikes] = useState(post?.likes);
   const profile = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("profile"));
+
+  const userId = user?.result.googleId || user?.result?._id;
+  const hasLikedPost = post?.likes?.find((like) => like === userId);
+
+  const handleLike = async () => {
+    dispatch(likePost(post._id));
+    if (hasLikedPost) {
+      setLikes(post.likes.filter((id) => id !== userId));
+    } else {
+      setLikes([...post.likes, userId]);
+    }
+  };
+
+  const Likes = () => {
+    if (likes.length > 0) {
+      return likes.find((like) => like === userId) ? (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <FavoriteRoundedIcon fontSize="large" />
+          &nbsp;
+          {likes.length > 2
+            ? `You and ${likes.length - 1} others`
+            : `${likes.length} Like${likes.length > 1 ? "s" : ""}`}
+        </div>
+      ) : (
+        <>
+          <FavoriteBorderRoundedIcon fontSize="large" />
+          &nbsp;{likes.length} {likes.length === 1 ? "Like" : "Likes"}
+        </>
+      );
+    }
+
+    return (
+      <>
+        <FavoriteBorderRoundedIcon fontSize="large" />
+        &nbsp;Like
+      </>
+    );
+  };
   useEffect(() => {
     dispatch(getProfile(post.creator));
   }, []);
@@ -25,8 +74,6 @@ const Post = ({ post }) => {
       <Card
         style={{
           height: "60rem",
-          // maxHeight: "60rem",
-          // height: "auto",
           borderRadius: "3%",
           backgroundColor: "#f5f5f5",
         }}
@@ -91,50 +138,75 @@ const Post = ({ post }) => {
         />
         <CardActions
           style={{
-            // display: "flex",
-            // flexDirection: "row",
-            // justifyContent: "space-evenly",
-            fontsize: "3rem",
+            display: "flex",
+            flexDirection: "row",
+            // fontsize: "2rem",
           }}
         >
-          <Tooltip title="Like">
-            <IconButton
-              style={{
-                backgroundColor: "transparent",
-                color: "orange",
-              }}
-            >
-              <FavoriteBorderRoundedIcon />
-              <FavoriteRoundedIcon />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Message">
-            <IconButton
-              style={{ backgroundColor: "transparent", color: "green" }}
-            >
-              <i className="fa-regular fa-message"></i>
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Share with friends">
-            <IconButton
-              style={{ backgroundColor: "transparent", color: "#263238" }}
-            >
-              <i className="fa-solid fa-paper-plane"></i>
-            </IconButton>
-          </Tooltip>
+          <div style={{ marginRight: "1rem" }}>
+            <Tooltip title="Like">
+              <IconButton
+                style={{
+                  backgroundColor: "transparent",
+                  color: "orange",
+                  fontSize: "1rem",
+                }}
+                disabled={!user?.result}
+                onClick={handleLike}
+              >
+                <Likes />
+              </IconButton>
+            </Tooltip>
+          </div>
+          <div style={{ marginRight: "1rem" }}>
+            <Tooltip title="Message">
+              <IconButton
+                style={{ backgroundColor: "transparent", color: "green" }}
+              >
+                <i className="fa-regular fa-message"></i>
+              </IconButton>
+            </Tooltip>
+          </div>
+          <div style={{ marginRight: "1rem" }}>
+            <Tooltip title="Share with friends">
+              <IconButton
+                style={{ backgroundColor: "transparent", color: "#263238" }}
+              >
+                <i className="fa-solid fa-paper-plane"></i>
+              </IconButton>
+            </Tooltip>
+          </div>
+          <div style={{ marginRight: "1rem" }}>
+            <Tooltip title="Save this post">
+              <IconButton
+                style={{
+                  backgroundColor: "transparent",
+                  color: "#263238",
+                }}
+              >
+                {saved ? (
+                  <BookmarkIcon
+                    fontSize="large"
+                    style={{ color: "orange" }}
+                    onClick={() => setSaved(false)}
+                  />
+                ) : (
+                  <BookmarkBorderIcon
+                    fontSize="large"
+                    onClick={() => setSaved(true)}
+                    style={{ color: "orange" }}
+                  />
+                )}
+              </IconButton>
+            </Tooltip>
+          </div>
         </CardActions>
         <CardContent style={{ display: "flex", flexDirection: "column" }}>
-          <Typography
-            variant="body2"
-            style={{ color: "orange", position: "relative", top: "-1.7rem" }}
-          >
-            {post.likes.length}
-          </Typography>
           <div>
             Comments:
             <Typography variant="body1" style={{ color: "grey" }}>
               <b style={{ color: "#263238" }}> Durwank Raorane: </b>
-              Hey that's a good post :) add gif and smily faces
+              Hey that's a good post :) add gifs
             </Typography>
           </div>
         </CardContent>

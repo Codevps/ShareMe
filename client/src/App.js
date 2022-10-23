@@ -15,12 +15,12 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" exact element={<Navigate to="/home" />} />
-          {/* <Route
+          <Route
             path="/home"
             exact
             element={user?.result._id ? <Home /> : <SignUp />}
-          /> */}
-          <Route path="/home" exact element={<Home />} />
+          />
+          {/* <Route path="/home" exact element={<Home />} /> */}
           <Route path="/postShare" exact element={<Share />} />
           <Route path="/:id" exact element={<MyProfile />} />
           <Route path="/signup" exact element={<SignUp />} />

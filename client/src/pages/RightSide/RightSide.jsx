@@ -1,15 +1,19 @@
+import BookmarkIcon from "@mui/icons-material/Bookmark";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
-import { Button, IconButton, Paper } from "@mui/material";
+import { Button, IconButton, Paper, Typography } from "@mui/material";
 import decode from "jwt-decode";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getUsers } from "../../actions/user";
 import { LOGOUT } from "../../constants/actionTypes";
 import ShareModal from "../PostSide/ShareModal.jsx";
 import Trends from "./Trends.jsx";
 
 const RightSide = () => {
+  const [setUp, setSetUp] = useState("home");
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  const profile = useSelector((state) => state.user);
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
@@ -19,17 +23,16 @@ const RightSide = () => {
     setUser(null);
     navigate("/");
   };
-  useEffect(() => {
-    const token = user?.token;
 
+  useEffect(() => {
+    dispatch(getUsers());
+    const token = user?.token;
     if (token) {
       const decodedToken = decode(token);
-
       if (decodedToken.exp * 1000 < new Date().getTime()) {
         logout();
       }
     }
-
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, []);
   return (
@@ -118,27 +121,53 @@ const RightSide = () => {
             </Paper>
           )}
         </div>
+        <IconButton style={{ color: "coral", fontSize: "2rem" }}>
+          <BookmarkIcon fontSize="large" onClick={() => setSetUp("saved")} />
+        </IconButton>{" "}
         <IconButton style={{ color: "black", fontSize: "2rem" }}>
           <QuestionAnswerIcon fontSize="large" />
         </IconButton>
       </div>
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <Trends />
-        <Button
-          variant="contained"
-          style={{
-            color: "white",
-            background: "linear-gradient(98.63deg, #f9a225 0%, #f95f35 100%)",
-            marginTop: "1rem",
-          }}
-          onClick={() => setOpen(true)}
-        >
-          Share
-        </Button>
-      </div>
-      <ShareModal open={open} setOpen={setOpen} />
+      {setUp === "home" && (
+        <div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <Trends />
+            <Button
+              variant="contained"
+              style={{
+                color: "white",
+                background:
+                  "linear-gradient(98.63deg, #f9a225 0%, #f95f35 100%)",
+                marginTop: "1rem",
+              }}
+              onClick={() => setOpen(true)}
+            >
+              Share
+            </Button>
+          </div>
+          <ShareModal open={open} setOpen={setOpen} />
+          <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
+            <Typography variant="h5">
+              <b> Follow More:</b>
+            </Typography>
+            {/* {profile.map((user) => (
+          <div>{user.email}</div>
+        ))} */}
+          </div>
+        </div>
+      )}
+      {setUp === "saved" && (
+        <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
+          <Typography variant="h5">
+            <b> Saved Posts:</b>
+          </Typography>
+          {}
+        </div>
+      )}
     </div>
   );
 };
 
 export default RightSide;
+// in useEffect post.saved:map all of them and one by one call and print those posts
+// if post.id == savedpost.id print post
