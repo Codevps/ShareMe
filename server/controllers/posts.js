@@ -40,7 +40,6 @@ export const deletePost = async (req, res) => {
 };
 export const likePost = async (req, res) => {
   const { id } = req.params;
-
   if (!req.userId) return res.json({ message: "User not authenticated" });
 
   if (!mongoose.Types.ObjectId.isValid(id))
@@ -60,6 +59,7 @@ export const likePost = async (req, res) => {
   });
   res.json(updatedPost);
 };
+
 export const commentPost = async (req, res) => {
   const { id } = req.params;
   const { value } = req.body;

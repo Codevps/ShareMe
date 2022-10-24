@@ -3,6 +3,7 @@ import {
   AUTH,
   FETCH_PROFILE,
   GET_USERS,
+  SAVE,
   UPDATE_PROFILE,
 } from "../constants/actionTypes";
 
@@ -38,6 +39,14 @@ export const updateUserProfile = (id, formData) => async (dispatch) => {
   try {
     const { data } = await api.updateUserProfile(id, formData);
     dispatch({ type: UPDATE_PROFILE, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const savePost = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.savePost(id);
+    dispatch({ type: SAVE, payload: data });
   } catch (error) {
     console.log(error);
   }

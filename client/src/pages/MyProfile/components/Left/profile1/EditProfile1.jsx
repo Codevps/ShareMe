@@ -17,24 +17,24 @@ import { LOGOUT } from "../../../../../constants/actionTypes";
 import EditProfileModal1 from "./EditProfileModal1";
 import { getProfile } from "../../../../../actions/user";
 const EditProfile1 = ({}) => {
+  // const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  const user = JSON.parse(localStorage.getItem("profile"));
   const profile = useSelector((state) => state.user);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const logout = () => {
-    dispatch({ type: LOGOUT });
-    setUser(null);
-    navigate("/");
-  };
+  // const logout = () => {
+  //   dispatch({ type: LOGOUT });
+  //   setUser(null);
+  //   navigate("/");
+  // };
   const edit = () => {
     setOpen(true);
   };
   useEffect(() => {
     dispatch(getProfile(user?.result._id));
   }, []);
-
   return (
     <div>
       <Card
@@ -184,7 +184,7 @@ const EditProfile1 = ({}) => {
                   border: "1px solid red",
                 }}
                 onClick={() => {
-                  logout();
+                  // logout();
                 }}
               >
                 <b>Logout</b>

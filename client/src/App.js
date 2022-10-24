@@ -18,7 +18,7 @@ const App = () => {
           <Route
             path="/home"
             exact
-            element={user?.result._id ? <Home /> : <SignUp />}
+            element={user?.result ? <Home /> : <SignUp />}
           />
           {/* <Route path="/home" exact element={<Home />} /> */}
           <Route path="/postShare" exact element={<Share />} />

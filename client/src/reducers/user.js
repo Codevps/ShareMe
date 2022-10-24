@@ -3,6 +3,7 @@ import {
   FETCH_PROFILE,
   GET_USERS,
   LOGOUT,
+  SAVE,
   UPDATE_PROFILE,
 } from "../constants/actionTypes";
 
@@ -14,7 +15,7 @@ const user = (state = { authData: [] }, action) => {
     case LOGOUT:
       localStorage.clear();
       return { ...state, authData: null };
-    case UPDATE_PROFILE:
+    case UPDATE_PROFILE || SAVE:
       return {
         ...state,
         authData: state.authData.map((post) =>

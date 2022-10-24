@@ -14,18 +14,27 @@ import {
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { likePost } from "../../../actions/posts";
-import { getProfile } from "../../../actions/user";
+import { getProfile, savePost } from "../../../actions/user";
 
 const Post = ({ post }) => {
   const [saved, setSaved] = useState(false);
   const [likes, setLikes] = useState(post?.likes);
-  const profile = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
-
-  const userId = user?.result.googleId || user?.result?._id;
+  const userId = user?.result?._id;
   const hasLikedPost = post?.likes?.find((like) => like === userId);
-
+  const me = useSelector((state) => state.user);
+  const hasSavedPosts = user?.result.savedPosts?.find(
+    (like) => like === post._id
+  );
+  const handleSavedPost = () => {
+    dispatch(savePost(post._id));
+    if (hasSavedPosts) {
+      setSaved(false);
+    } else {
+      setSaved(true);
+    }
+  };
   const handleLike = async () => {
     dispatch(likePost(post._id));
     if (hasLikedPost) {
@@ -66,7 +75,7 @@ const Post = ({ post }) => {
     );
   };
   useEffect(() => {
-    dispatch(getProfile(post.creator));
+    dispatch(getProfile(post?.creator));
   }, []);
 
   return (
@@ -92,7 +101,7 @@ const Post = ({ post }) => {
             }}
           >
             <CardMedia
-              image={profile?.authData.profilePhoto}
+              image={me?.authData.profilePhoto}
               style={{
                 borderRadius: "50%",
                 width: "50px",
@@ -102,7 +111,7 @@ const Post = ({ post }) => {
             />
             <div>
               <Typography variant="h6">
-                <b>{profile?.authData.name}</b>
+                <b>{me?.authData.name}</b>
               </Typography>
               <Typography
                 variant="body2"
@@ -112,7 +121,7 @@ const Post = ({ post }) => {
                   color: "charcoal",
                 }}
               >
-                {profile?.authData.profession}
+                {me?.authData.profession}
               </Typography>
             </div>
           </div>
@@ -140,7 +149,6 @@ const Post = ({ post }) => {
           style={{
             display: "flex",
             flexDirection: "row",
-            // fontsize: "2rem",
           }}
         >
           <div style={{ marginRight: "1rem" }}>
@@ -183,17 +191,13 @@ const Post = ({ post }) => {
                   backgroundColor: "transparent",
                   color: "#263238",
                 }}
+                onClick={() => handleSavedPost()}
               >
                 {saved ? (
-                  <BookmarkIcon
-                    fontSize="large"
-                    style={{ color: "orange" }}
-                    onClick={() => setSaved(false)}
-                  />
+                  <BookmarkIcon fontSize="large" style={{ color: "orange" }} />
                 ) : (
                   <BookmarkBorderIcon
                     fontSize="large"
-                    onClick={() => setSaved(true)}
                     style={{ color: "orange" }}
                   />
                 )}

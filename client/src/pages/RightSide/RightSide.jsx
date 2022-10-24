@@ -5,12 +5,14 @@ import decode from "jwt-decode";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getUsers } from "../../actions/user";
+import { getPosts } from "../../actions/posts";
+import { getProfile } from "../../actions/user";
 import { LOGOUT } from "../../constants/actionTypes";
 import ShareModal from "../PostSide/ShareModal.jsx";
 import Trends from "./Trends.jsx";
 
 const RightSide = () => {
+  const posts = useSelector((state) => state.posts.posts);
   const [setUp, setSetUp] = useState("home");
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const profile = useSelector((state) => state.user);
@@ -24,8 +26,14 @@ const RightSide = () => {
     navigate("/");
   };
 
+  // posts.map((post) =>
+  //   profile?.authData.savedPosts.map(
+  //     (item) => post._id === item && console.log(item)
+  //   )
+  // );
   useEffect(() => {
-    dispatch(getUsers());
+    dispatch(getProfile(user?.result._id));
+    dispatch(getPosts());
     const token = user?.token;
     if (token) {
       const decodedToken = decode(token);
@@ -33,7 +41,6 @@ const RightSide = () => {
         logout();
       }
     }
-    setUser(JSON.parse(localStorage.getItem("profile")));
   }, []);
   return (
     <div className="RightSide">
@@ -161,7 +168,6 @@ const RightSide = () => {
           <Typography variant="h5">
             <b> Saved Posts:</b>
           </Typography>
-          {}
         </div>
       )}
     </div>
@@ -170,4 +176,4 @@ const RightSide = () => {
 
 export default RightSide;
 // in useEffect post.saved:map all of them and one by one call and print those posts
-// if post.id == savedpost.id print post
+// if post.id == savedpost.id print post..

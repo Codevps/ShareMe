@@ -19,6 +19,10 @@ const userSchema = mongoose.Schema({
   coverPhoto: { type: String },
   followers: { type: Number, default: 0 },
   following: { type: Number, default: 0 },
+  savedPosts: {
+    type: [String],
+    default: [],
+  },
   posts: { type: String },
 });
 

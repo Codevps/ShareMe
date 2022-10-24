@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/user.js";
 import { secret } from "../secret.js";
 import mongoose from "mongoose";
+import PostSchema from "../models/posts.js";
 
 export const signIn = async (req, res) => {
   const { email, password } = req.body;
@@ -135,4 +136,27 @@ export const getUsers = async (req, res) => {
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
+};
+
+export const savePost = async (req, res) => {
+  const { id: _id } = req.params; //post
+
+  if (!req.userId) return res.json({ message: "User not authenticated" });
+
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send("No post available with this id,Invalid Id");
+  const userId = req.userId;
+  const user = await User.findById(userId);
+  const index = user.savedPosts.findIndex((id) => id === String(_id));
+
+  if (index === -1) {
+    user.savedPosts.push(_id);
+  } else {
+    user.savedPosts = user.savedPosts.filter((id) => id !== String(_id));
+  }
+  const updatedPost = await User.findByIdAndUpdate(userId, user, {
+    new: true,
+  });
+  console.log(updatedPost);
+  res.json(updatedPost);
 };

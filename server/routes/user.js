@@ -5,6 +5,7 @@ import {
   updateUserProfile,
   getUserProfile,
   getUsers,
+  savePost,
 } from "../controllers/user.js";
 import auth from "../middleware/auth.js";
 
@@ -13,5 +14,6 @@ router.post("/signUp", signUp);
 router.post("/signIn", signIn);
 router.patch("/:id", auth, updateUserProfile);
 router.get("/profile/:id", auth, getUserProfile);
+router.patch("/:id/savePost", auth, savePost);
 router.get("/", getUsers);
 export default router;
