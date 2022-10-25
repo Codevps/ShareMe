@@ -5,6 +5,8 @@ export const DELETE = "DELETE";
 export const LIKE = "LIKE";
 export const GET_USERS = "GET_USERS";
 
+export const FETCH_PROFILE1 = "FETCH_PROFILE1";
+
 export const FETCH_PROFILE = "FETCH_PROFILE";
 export const UPDATE_PROFILE = "UPDATE_PROFILE";
 export const CREATE_PROFILE = "CREATE_PROFILE";

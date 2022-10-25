@@ -105,11 +105,19 @@ export const updateUserProfile = async (req, res) => {
       new: true,
     }
   );
-  console.log(updatedUserProfile);
   res.json(updatedUserProfile);
 };
 
 export const getUserProfile = async (req, res) => {
+  const { id: _id } = req.params;
+  try {
+    const post = await User.findById(_id);
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+export const getUserProfile1 = async (req, res) => {
   const { id: _id } = req.params;
   try {
     const post = await User.findById(_id);
@@ -157,6 +165,5 @@ export const savePost = async (req, res) => {
   const updatedPost = await User.findByIdAndUpdate(userId, user, {
     new: true,
   });
-  console.log(updatedPost);
   res.json(updatedPost);
 };

@@ -14,27 +14,25 @@ import {
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { likePost } from "../../../actions/posts";
-import { getProfile, savePost } from "../../../actions/user";
+import { getProfile, getProfile1, savePost } from "../../../actions/user";
 
 const Post = ({ post }) => {
   const [saved, setSaved] = useState(false);
   const [likes, setLikes] = useState(post?.likes);
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
+  const user1 = useSelector((state) => state.user);
   const userId = user?.result?._id;
   const hasLikedPost = post?.likes?.find((like) => like === userId);
-  const me = useSelector((state) => state.user);
-  const hasSavedPosts = user?.result.savedPosts?.find(
+  const profile = useSelector((state) => state.profile);
+  const hasSavedPosts = user1?.authData.savedPosts?.find(
     (like) => like === post._id
   );
   const handleSavedPost = () => {
     dispatch(savePost(post._id));
-    if (hasSavedPosts) {
-      setSaved(false);
-    } else {
-      setSaved(true);
-    }
+    setSaved((prev) => !prev);
   };
+
   const handleLike = async () => {
     dispatch(likePost(post._id));
     if (hasLikedPost) {
@@ -75,7 +73,16 @@ const Post = ({ post }) => {
     );
   };
   useEffect(() => {
-    dispatch(getProfile(post?.creator));
+    dispatch(getProfile1(post?.creator));
+    dispatch(getProfile(user?.result._id));
+    //create another reducer called profile for setting
+    // up new getProfile so that it does not interfere
+    // with user
+    if (hasSavedPosts) {
+      setSaved(true);
+    } else {
+      setSaved(false);
+    }
   }, []);
 
   return (
@@ -101,7 +108,7 @@ const Post = ({ post }) => {
             }}
           >
             <CardMedia
-              image={me?.authData.profilePhoto}
+              image={profile?.profile.profilePhoto}
               style={{
                 borderRadius: "50%",
                 width: "50px",
@@ -111,7 +118,7 @@ const Post = ({ post }) => {
             />
             <div>
               <Typography variant="h6">
-                <b>{me?.authData.name}</b>
+                <b>{profile?.profile.name}</b>
               </Typography>
               <Typography
                 variant="body2"
@@ -121,7 +128,7 @@ const Post = ({ post }) => {
                   color: "charcoal",
                 }}
               >
-                {me?.authData.profession}
+                {profile?.profile.profession}
               </Typography>
             </div>
           </div>

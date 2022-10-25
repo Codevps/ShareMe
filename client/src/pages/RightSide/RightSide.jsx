@@ -10,6 +10,7 @@ import { getProfile } from "../../actions/user";
 import { LOGOUT } from "../../constants/actionTypes";
 import ShareModal from "../PostSide/ShareModal.jsx";
 import Trends from "./Trends.jsx";
+import Post from "../Posts/Post/Post.jsx";
 
 const RightSide = () => {
   const posts = useSelector((state) => state.posts.posts);
@@ -26,11 +27,11 @@ const RightSide = () => {
     navigate("/");
   };
 
-  // posts.map((post) =>
-  //   profile?.authData.savedPosts.map(
-  //     (item) => post._id === item && console.log(item)
-  //   )
-  // );
+  posts.map((post) =>
+    profile?.authData.savedPosts.map(
+      (item) => post._id === item && console.log(item)
+    )
+  );
   useEffect(() => {
     dispatch(getProfile(user?.result._id));
     dispatch(getPosts());
@@ -164,10 +165,20 @@ const RightSide = () => {
         </div>
       )}
       {setUp === "saved" && (
-        <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
-          <Typography variant="h5">
+        <div style={{ marginTop: "1.5rem" }}>
+          <Typography variant="h5" style={{ textAlign: "center" }}>
             <b> Saved Posts:</b>
           </Typography>
+          {posts.map((post) =>
+            profile?.authData.savedPosts.map(
+              (item) =>
+                post._id === item && (
+                  <div>
+                    <Post post={post} />
+                  </div>
+                )
+            )
+          )}
         </div>
       )}
     </div>

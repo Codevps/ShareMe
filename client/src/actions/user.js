@@ -2,6 +2,7 @@ import * as api from "../api";
 import {
   AUTH,
   FETCH_PROFILE,
+  FETCH_PROFILE1,
   GET_USERS,
   SAVE,
   UPDATE_PROFILE,
@@ -11,6 +12,14 @@ export const getProfile = (id, navigate) => async (dispatch) => {
   try {
     const { data } = await api.getUserProfile(id);
     dispatch({ type: FETCH_PROFILE, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const getProfile1 = (id, navigate) => async (dispatch) => {
+  try {
+    const { data } = await api.getUserProfile(id);
+    dispatch({ type: FETCH_PROFILE1, payload: data });
   } catch (error) {
     console.log(error);
   }

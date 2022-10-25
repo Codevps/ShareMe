@@ -19,6 +19,9 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
+export const getUserProfile1 = (id) =>
+  API.get(`/profile/profile/${id}`, getUserProfile1);
+
 export const signIn = (formData) => API.post("/user/signIn", formData);
 export const signUp = (formData) => API.post("/user/signUp", formData);
 export const updateUserProfile = (id, updatedUserProfile) =>
