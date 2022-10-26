@@ -2,14 +2,12 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
-import SendIcon from "@mui/icons-material/Send";
 import {
   Card,
   CardActions,
   CardContent,
   CardMedia,
   IconButton,
-  TextField,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -17,11 +15,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { likePost } from "../../../actions/posts";
 import { getProfile, getProfile1, savePost } from "../../../actions/user";
+import CommentsSection from "./CommentsSection";
 
 const Post = ({ post }) => {
   const [saved, setSaved] = useState(false);
   const [comments, setComments] = useState(false);
-  const [commentData, setCommentData] = useState("");
   const [likes, setLikes] = useState(post?.likes);
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -36,8 +34,6 @@ const Post = ({ post }) => {
     dispatch(savePost(post._id));
     setSaved((prev) => !prev);
   };
-  console.log(commentData);
-  const handleComment = () => {};
   const handleLike = async () => {
     dispatch(likePost(post._id));
     if (hasLikedPost) {
@@ -215,44 +211,13 @@ const Post = ({ post }) => {
             </Tooltip>
           </div>
         </CardActions>
-        <CardActions>
-          {comments && (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                width: "100%",
-              }}
-            >
-              <TextField
-                fullWidth
-                label="Comment on this post"
-                multiline="true"
-                autoFocus
-                variant="outlined"
-                name="comment"
-                placeholder="Comments"
-                onChange={(e) => setCommentData(e.target.value)}
-                value={commentData}
-              />
-              <Tooltip title="Send this message">
-                <IconButton onClick={() => handleComment(post._id)}>
-                  <SendIcon style={{ color: "green" }} />
-                </IconButton>
-              </Tooltip>
-            </div>
-          )}
-        </CardActions>
-        <CardContent style={{ display: "flex", flexDirection: "column" }}>
-          <div>
-            Comments:
-            <Typography variant="body1" style={{ color: "grey" }}>
-              <b style={{ color: "#263238" }}> Durwank Raorane: </b>
-              Hey that's a good post :) add gifs
-            </Typography>
-          </div>
-        </CardContent>
+        <div>
+          <CommentsSection
+            comments={comments}
+            setComments={setComments}
+            post={post}
+          />
+        </div>
       </Card>
     </div>
   );
