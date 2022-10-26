@@ -26,12 +26,6 @@ const RightSide = () => {
     setUser(null);
     navigate("/");
   };
-
-  posts.map((post) =>
-    profile?.authData.savedPosts.map(
-      (item) => post._id === item && console.log(item)
-    )
-  );
   useEffect(() => {
     dispatch(getProfile(user?.result._id));
     dispatch(getPosts());

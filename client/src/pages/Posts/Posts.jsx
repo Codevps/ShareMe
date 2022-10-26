@@ -2,13 +2,16 @@ import { Grid } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../../actions/posts";
+import { getUsers } from "../../actions/user";
 import Post from "./Post/Post.jsx";
 
 const Posts = () => {
   const posts = useSelector((state) => state.posts.posts);
+  const users = useSelector((state) => state.user);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getPosts());
+    dispatch(getUsers());
   }, []);
   return (
     <Grid

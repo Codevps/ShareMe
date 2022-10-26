@@ -72,3 +72,14 @@ export const getUsers = () => async (dispatch) => {
     console.log(error);
   }
 };
+export const getUsers1 = () => async (dispatch) => {
+  try {
+    const { data } = await api.getUsers();
+    dispatch({
+      type: GET_USERS,
+      payload: { data },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};

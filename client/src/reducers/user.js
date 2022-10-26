@@ -25,7 +25,7 @@ const user = (state = { authData: [] }, action) => {
     case FETCH_PROFILE:
       return { ...state, authData: action.payload };
     case GET_USERS:
-      return { ...state, authData: action.payload };
+      return { ...state, authData: action.payload.data };
     default:
       return state;
   }

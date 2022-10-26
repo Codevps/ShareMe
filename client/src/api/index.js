@@ -29,6 +29,7 @@ export const updateUserProfile = (id, updatedUserProfile) =>
 export const getUserProfile = (id) =>
   API.get(`/user/profile/${id}`, getUserProfile);
 export const getUsers = () => API.get(`/user/`);
+export const getUsers1 = () => API.get(`/profile/`);
 
 export const fetchPosts = () => API.get(`/posts/`);
 export const createPost = (newPost) => API.post("/posts", newPost);

@@ -2,12 +2,14 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
+import SendIcon from "@mui/icons-material/Send";
 import {
   Card,
   CardActions,
   CardContent,
   CardMedia,
   IconButton,
+  TextField,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -18,6 +20,8 @@ import { getProfile, getProfile1, savePost } from "../../../actions/user";
 
 const Post = ({ post }) => {
   const [saved, setSaved] = useState(false);
+  const [comments, setComments] = useState(false);
+  const [commentData, setCommentData] = useState("");
   const [likes, setLikes] = useState(post?.likes);
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -32,7 +36,8 @@ const Post = ({ post }) => {
     dispatch(savePost(post._id));
     setSaved((prev) => !prev);
   };
-
+  console.log(commentData);
+  const handleComment = () => {};
   const handleLike = async () => {
     dispatch(likePost(post._id));
     if (hasLikedPost) {
@@ -75,9 +80,6 @@ const Post = ({ post }) => {
   useEffect(() => {
     dispatch(getProfile1(post?.creator));
     dispatch(getProfile(user?.result._id));
-    //create another reducer called profile for setting
-    // up new getProfile so that it does not interfere
-    // with user
     if (hasSavedPosts) {
       setSaved(true);
     } else {
@@ -174,8 +176,9 @@ const Post = ({ post }) => {
             </Tooltip>
           </div>
           <div style={{ marginRight: "1rem" }}>
-            <Tooltip title="Message">
+            <Tooltip title="Comment">
               <IconButton
+                onClick={() => setComments((prev) => !prev)}
                 style={{ backgroundColor: "transparent", color: "green" }}
               >
                 <i className="fa-regular fa-message"></i>
@@ -211,6 +214,35 @@ const Post = ({ post }) => {
               </IconButton>
             </Tooltip>
           </div>
+        </CardActions>
+        <CardActions>
+          {comments && (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                width: "100%",
+              }}
+            >
+              <TextField
+                fullWidth
+                label="Comment on this post"
+                multiline="true"
+                autoFocus
+                variant="outlined"
+                name="comment"
+                placeholder="Comments"
+                onChange={(e) => setCommentData(e.target.value)}
+                value={commentData}
+              />
+              <Tooltip title="Send this message">
+                <IconButton onClick={() => handleComment(post._id)}>
+                  <SendIcon style={{ color: "green" }} />
+                </IconButton>
+              </Tooltip>
+            </div>
+          )}
         </CardActions>
         <CardContent style={{ display: "flex", flexDirection: "column" }}>
           <div>
