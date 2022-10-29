@@ -175,3 +175,24 @@ export const savePost = async (req, res) => {
   });
   res.json(updatedPost);
 };
+export const registerPost = async (req, res) => {
+  const { id: _id } = req.params; //post
+
+  if (!req.userId) return res.json({ message: "User not authenticated" });
+
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send("No post available with this id,Invalid Id");
+  const userId = req.userId;
+  const user = await User.findById(userId);
+  const index = user.posts.findIndex((id) => id === String(_id));
+  if (index === -1) {
+    user.posts.push(_id);
+    user.postsLength = user.posts.length + 1;
+  } else {
+    user.postsLength = user.posts.length;
+  }
+  const updatedPost = await User.findByIdAndUpdate(userId, user, {
+    new: true,
+  });
+  res.json(updatedPost);
+};

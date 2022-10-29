@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { likePost } from "../../../actions/posts";
 import { getProfile, getProfile1, savePost } from "../../../actions/user";
 import CommentsSection from "./CommentsSection";
+import PostProfileDetails from "./PostProfileDetails";
 
 const Post = ({ post }) => {
   const [saved, setSaved] = useState(false);
@@ -23,11 +24,10 @@ const Post = ({ post }) => {
   const [likes, setLikes] = useState(post?.likes);
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
-  const user1 = useSelector((state) => state.user);
+  const user1 = useSelector((state) => state.users);
   const userId = user?.result?._id;
   const hasLikedPost = post?.likes?.find((like) => like === userId);
-  const profile = useSelector((state) => state.profile);
-  const hasSavedPosts = user1?.authData.savedPosts?.find(
+  const hasSavedPosts = user1?.users.savedPosts?.find(
     (like) => like === post._id
   );
   const handleSavedPost = () => {
@@ -98,38 +98,7 @@ const Post = ({ post }) => {
             flexDirection: "column",
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
-            <CardMedia
-              image={profile?.profile.profilePhoto}
-              style={{
-                borderRadius: "50%",
-                width: "50px",
-                height: "50px",
-                marginRight: "1rem",
-              }}
-            />
-            <div>
-              <Typography variant="h6">
-                <b>{profile?.profile.name}</b>
-              </Typography>
-              <Typography
-                variant="body2"
-                style={{
-                  fontFamily: "arial",
-                  fontSize: "0.9rem",
-                  color: "charcoal",
-                }}
-              >
-                {profile?.profile.profession}
-              </Typography>
-            </div>
-          </div>
+          <PostProfileDetails post={post} />
           <div
             style={{
               marginLeft: "1rem",

@@ -23,7 +23,14 @@ const userSchema = mongoose.Schema({
     type: [String],
     default: [],
   },
-  posts: { type: String },
+  posts: {
+    type: [String],
+    default: [],
+  },
+  postsLength: {
+    type: Number,
+    default: 0,
+  },
 });
 
 export default mongoose.model("User", userSchema);

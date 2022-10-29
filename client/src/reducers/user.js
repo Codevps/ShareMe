@@ -3,31 +3,32 @@ import {
   FETCH_PROFILE,
   GET_USERS,
   LOGOUT,
+  REGISTER,
   SAVE,
   UPDATE_PROFILE,
 } from "../constants/actionTypes";
 
-const user = (state = { authData: [] }, action) => {
+const users = (state = { users: [] }, action) => {
   switch (action.type) {
     case AUTH:
       localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
-      return { ...state, authData: action?.data };
+      return { ...state, users: action?.data };
     case LOGOUT:
       localStorage.clear();
-      return { ...state, authData: null };
-    case UPDATE_PROFILE || SAVE:
+      return { ...state, users: null };
+    case UPDATE_PROFILE || SAVE || REGISTER:
       return {
         ...state,
-        authData: state.authData.map((post) =>
-          post._id === action.payload._id ? action.payload : post
+        users: state.userss.map((user) =>
+          user._id === action.payload._id ? action.payload : user
         ),
       };
     case FETCH_PROFILE:
-      return { ...state, authData: action.payload };
+      return { ...state, user: action.payload };
     case GET_USERS:
-      return { ...state, authData: action.payload.data };
+      return { ...state, users: action.payload.data };
     default:
       return state;
   }
 };
-export default user;
+export default users;

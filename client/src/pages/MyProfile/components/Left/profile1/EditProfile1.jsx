@@ -15,25 +15,31 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { LOGOUT } from "../../../../../constants/actionTypes";
 import EditProfileModal1 from "./EditProfileModal1";
-import { getProfile } from "../../../../../actions/user";
+import { getProfile, registerPost } from "../../../../../actions/user";
+import { getPosts } from "../../../../../actions/posts";
 const EditProfile1 = ({}) => {
-  // const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
-  const user = JSON.parse(localStorage.getItem("profile"));
-  const profile = useSelector((state) => state.user);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  const profile = useSelector((state) => state.users.user);
+  const posts = useSelector((state) => state.posts.posts);
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const logout = () => {
-  //   dispatch({ type: LOGOUT });
-  //   setUser(null);
-  //   navigate("/");
-  // };
+  const logout = () => {
+    dispatch({ type: LOGOUT });
+    setUser(null);
+    navigate("/");
+  };
   const edit = () => {
     setOpen(true);
   };
   useEffect(() => {
     dispatch(getProfile(user?.result._id));
+    dispatch(getPosts());
+    posts.map(
+      (post) =>
+        post?.creator === user?.result._id && dispatch(registerPost(post._id))
+    );
   }, []);
   return (
     <div>
@@ -69,7 +75,7 @@ const EditProfile1 = ({}) => {
           <EditProfileModal1
             open={open}
             setOpen={setOpen}
-            profile={profile?.authData}
+            profile={profile?.users}
           />
           <div
             style={{
@@ -82,19 +88,19 @@ const EditProfile1 = ({}) => {
               <b>Personal Info</b>:
             </Typography>
             <Typography>
-              <b>First Name:</b> {profile?.authData.name}
+              <b>First Name:</b> {profile?.users.name}
             </Typography>
             <Typography>
-              <b>Email:</b> {profile.authData.email}
+              <b>Email:</b> {profile.users.email}
             </Typography>
             <Typography>
-              <b>Contact:</b> {profile.authData.contact}
+              <b>Contact:</b> {profile.users.contact}
             </Typography>
             <Typography>
-              <b>Town/City</b>: {profile.authData.location}
+              <b>Town/City</b>: {profile.users.location}
             </Typography>
             <Typography>
-              <b>Country:</b> {profile.authData.country}
+              <b>Country:</b> {profile.users.country}
             </Typography>
           </div>
           {show && (
@@ -112,21 +118,17 @@ const EditProfile1 = ({}) => {
                 >
                   <b>Professional Info</b>:
                 </Typography>
-                <Typography>
-                  Profession: {profile.authData.profession}
-                </Typography>
-                <Typography>Working At: {profile.authData.working}</Typography>
-                <Typography>
-                  Experience: {profile.authData.experience}
-                </Typography>
+                <Typography>Profession: {profile.users.profession}</Typography>
+                <Typography>Working At: {profile.users.working}</Typography>
+                <Typography>Experience: {profile.users.experience}</Typography>
                 <Typography>
                   Skills: useMap function
-                  {profile.authData.skills}
+                  {profile.users.skills}
                   skills.map::with bullet points in a line
                 </Typography>
                 <Typography>
                   Skills: useMap function
-                  {profile.authData.technicalSkills}
+                  {profile.users.technicalSkills}
                   technicalSkills.map::with bullet points in a line
                 </Typography>
               </div>
@@ -144,13 +146,13 @@ const EditProfile1 = ({}) => {
                   <b>Educational/Background Info</b>:
                 </Typography>
                 <Typography>
-                  Education till: {profile.authData.education}
+                  Education till: {profile.users.education}
                 </Typography>
                 {/* could be 11 12 degree med other */}
                 {/* if degree then degree in if med then med int if other then specify  */}
-                <Typography>Degree in: {profile.authData.degree}</Typography>
+                <Typography>Degree in: {profile.users.degree}</Typography>
                 <Typography>
-                  Name of Institute: {profile.authData.institute}
+                  Name of Institute: {profile.users.institute}
                 </Typography>
               </div>
             </>

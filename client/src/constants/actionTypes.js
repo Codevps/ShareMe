@@ -20,3 +20,4 @@ export const END_LOADING = "END_LOADING";
 
 export const COMMENT = "COMMENT";
 export const SAVE = "SAVE";
+export const REGISTER = "REGISTER";

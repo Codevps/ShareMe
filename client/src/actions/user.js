@@ -4,6 +4,7 @@ import {
   FETCH_PROFILE,
   FETCH_PROFILE1,
   GET_USERS,
+  REGISTER,
   SAVE,
   UPDATE_PROFILE,
 } from "../constants/actionTypes";
@@ -56,6 +57,14 @@ export const savePost = (id) => async (dispatch) => {
   try {
     const { data } = await api.savePost(id);
     dispatch({ type: SAVE, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const registerPost = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.registerPost(id);
+    dispatch({ type: REGISTER, payload: data });
   } catch (error) {
     console.log(error);
   }

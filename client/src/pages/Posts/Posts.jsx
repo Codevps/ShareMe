@@ -7,7 +7,7 @@ import Post from "./Post/Post.jsx";
 
 const Posts = () => {
   const posts = useSelector((state) => state.posts.posts);
-  const users = useSelector((state) => state.user);
+  const users = useSelector((state) => state.users);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getPosts());

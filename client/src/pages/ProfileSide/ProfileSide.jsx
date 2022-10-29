@@ -6,15 +6,20 @@ import YourInfo from "./YourInfo.jsx";
 
 const ProfileSide = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
-  const profile = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const profile = useSelector((state) => state.users.user);
+  // const x = async () => {
+  //   console.log(profile);
+  // };
+  // x();
+  console.log(profile);
   useEffect(() => {
     dispatch(getProfile(user?.result._id));
   }, []);
   return (
     <div className="ProfileSide">
       <LogoSearch />
-      <YourInfo profile={profile?.authData} />
+      <YourInfo profile={profile} />
     </div>
   );
 };

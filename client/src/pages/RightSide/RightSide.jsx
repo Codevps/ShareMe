@@ -11,12 +11,13 @@ import { LOGOUT } from "../../constants/actionTypes";
 import ShareModal from "../PostSide/ShareModal.jsx";
 import Trends from "./Trends.jsx";
 import Post from "../Posts/Post/Post.jsx";
+import Followers from "../Followers/Followers";
 
 const RightSide = () => {
   const posts = useSelector((state) => state.posts.posts);
   const [setUp, setSetUp] = useState("home");
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
-  const profile = useSelector((state) => state.user);
+  const profile = useSelector((state) => state.users);
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
@@ -148,14 +149,7 @@ const RightSide = () => {
             </Button>
           </div>
           <ShareModal open={open} setOpen={setOpen} />
-          <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
-            <Typography variant="h5">
-              <b> Follow More:</b>
-            </Typography>
-            {/* {profile.map((user) => (
-          <div>{user.email}</div>
-        ))} */}
-          </div>
+          <Followers />
         </div>
       )}
       {setUp === "saved" && (
@@ -164,7 +158,7 @@ const RightSide = () => {
             <b> Saved Posts:</b>
           </Typography>
           {posts.map((post) =>
-            profile?.authData.savedPosts.map(
+            profile?.users.savedPosts.map(
               (item) =>
                 post._id === item && (
                   <div>

@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import user from "./user";
+import users from "./user";
 import profile from "./profile";
 import posts from "./posts";
-export const reducers = combineReducers({ user, posts, profile });
+export const reducers = combineReducers({ users, posts, profile });

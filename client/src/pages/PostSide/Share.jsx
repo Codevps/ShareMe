@@ -18,13 +18,14 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import FileBase from "react-file-base64";
 import { useDispatch, useSelector } from "react-redux";
-import { createPost } from "../../actions/posts";
-import { getProfile } from "../../actions/user";
+import { createPost, getPosts } from "../../actions/posts";
+import { getProfile, registerPost } from "../../actions/user";
 import "./styles.css";
 
 const Share = ({ open, setOpen }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
-  const profile = useSelector((state) => state.user);
+  const profile = useSelector((state) => state.users);
+  const posts = useSelector((state) => state.posts.posts);
   const dispatch = useDispatch();
   const [image, setImage] = useState(false);
   const [openMessage, setOpenMessage] = useState(false);
@@ -96,7 +97,7 @@ const Share = ({ open, setOpen }) => {
               }}
             >
               <CardMedia
-                image={profile?.authData.profilePhoto}
+                image={profile?.users.profilePhoto}
                 style={{
                   marginLeft: "1rem",
                   height: "4.5rem",

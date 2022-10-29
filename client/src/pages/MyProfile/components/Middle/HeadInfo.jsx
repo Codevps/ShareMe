@@ -97,7 +97,7 @@ const HeadInfo = ({ profile }) => {
               }}
             >
               <Typography variant="h6">
-                <b>{profile.posts.length}</b>
+                <b>{profile.postsLength - 1}</b>
               </Typography>
               <Typography variant="body1">Posts</Typography>
             </div>

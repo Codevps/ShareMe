@@ -6,16 +6,16 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Middle = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
-  const profile = useSelector((state) => state.user);
+  const profile = useSelector((state) => state.users);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProfile(user?.result._id));
   }, []);
   return (
     <div>
-      <HeadInfo profile={profile?.authData} />
+      <HeadInfo profile={profile?.users} />
       <div style={{ marginTop: "2rem" }}></div>
-      <PostSide profile={profile?.authData} />
+      <PostSide profile={profile?.users} />
     </div>
   );
 };
