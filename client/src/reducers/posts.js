@@ -2,12 +2,18 @@ import {
   COMMENT,
   CREATE,
   DELETE,
+  END_LOADING,
   FETCH_ALL,
   LIKE,
+  START_LOADING,
 } from "../constants/actionTypes";
 
-const posts = (state = { posts: [] }, action) => {
+const posts = (state = { isLoading: true, posts: [] }, action) => {
   switch (action.type) {
+    case START_LOADING:
+      return { ...state, isLoading: true };
+    case END_LOADING:
+      return { ...state, isLoading: false };
     case FETCH_ALL:
       return { ...state, posts: action.payload.data.data };
     case CREATE:

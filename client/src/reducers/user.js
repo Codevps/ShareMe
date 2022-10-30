@@ -1,15 +1,21 @@
 import {
   AUTH,
+  END_LOADING,
   FETCH_PROFILE,
   GET_USERS,
   LOGOUT,
   REGISTER,
   SAVE,
+  START_LOADING,
   UPDATE_PROFILE,
 } from "../constants/actionTypes";
 
-const users = (state = { users: [] }, action) => {
+const users = (state = { isLoading: true, users: [] }, action) => {
   switch (action.type) {
+    case START_LOADING:
+      return { ...state, isLoading: true };
+    case END_LOADING:
+      return { ...state, isLoading: false };
     case AUTH:
       localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
       return { ...state, users: action?.data };
