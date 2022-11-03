@@ -21,7 +21,7 @@ const Posts = () => {
         flexDirection: "column",
       }}
     >
-      {posts.map((post) => (
+      {posts?.map((post) => (
         <Grid key={post._id} item>
           <Post post={post} />
         </Grid>

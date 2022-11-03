@@ -17,8 +17,14 @@ const userSchema = mongoose.Schema({
   institute: { type: String },
   profilePhoto: { type: String },
   coverPhoto: { type: String },
-  followers: { type: Number, default: 0 },
-  following: { type: Number, default: 0 },
+  followers: {
+    type: [String],
+    default: [],
+  },
+  following: {
+    type: [String],
+    default: [],
+  },
   savedPosts: {
     type: [String],
     default: [],

@@ -39,7 +39,7 @@ const EditProfile1 = ({}) => {
   useEffect(() => {
     dispatch(getProfile(profile?.result._id));
     dispatch(getPosts());
-    posts.map(
+    posts?.map(
       (post) =>
         post?.creator === profile?.result._id &&
         dispatch(registerPost(post._id))

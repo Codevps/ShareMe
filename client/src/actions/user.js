@@ -4,6 +4,7 @@ import {
   END_LOADING,
   FETCH_PROFILE,
   FETCH_PROFILE1,
+  FOLLOW,
   GET_USERS,
   REGISTER,
   SAVE,
@@ -37,7 +38,7 @@ export const signIn = (formData, navigate) => async (dispatch) => {
     const { data } = await api.signIn(formData);
     dispatch({ type: AUTH, data });
     dispatch({ type: END_LOADING });
-    navigate(`/home/`);
+    navigate(`/home`);
   } catch (error) {
     console.log(error);
   }
@@ -70,6 +71,16 @@ export const savePost = (id) => async (dispatch) => {
     dispatch({ type: START_LOADING });
     const { data } = await api.savePost(id);
     dispatch({ type: SAVE, payload: data });
+    dispatch({ type: END_LOADING });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const followUser = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+    const { data } = await api.followUser(id);
+    dispatch({ type: FOLLOW, payload: data });
     dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);

@@ -151,7 +151,7 @@ const RightSide = () => {
             </Button>
           </div>
           <ShareModal open={open} setOpen={setOpen} />
-          <Followers />
+          <Followers user={user} />
         </div>
       )}
       {setUp === "saved" && (
@@ -159,8 +159,8 @@ const RightSide = () => {
           <Typography variant="h5" style={{ textAlign: "center" }}>
             <b> Saved Posts:</b>
           </Typography>
-          {posts.map((post) =>
-            user?.savedPosts.map(
+          {posts?.map((post) =>
+            user?.savedPosts?.map(
               (item) =>
                 post._id === item && (
                   <div>

@@ -85,7 +85,7 @@ const Post = ({ post }) => {
     <div>
       <Card
         style={{
-          height: "60rem",
+          height: post?.photo ? "60rem" : "auto",
           borderRadius: "3%",
           backgroundColor: "#f5f5f5",
         }}
@@ -107,16 +107,18 @@ const Post = ({ post }) => {
             <Typography>{post.message}</Typography>
           </div>
         </CardContent>
-        <CardMedia
-          image={post.photo}
-          style={{
-            height: "60%",
-            width: "auto",
-            margin: "1rem",
-            marginTop: "-0.5rem",
-            borderRadius: "3%",
-          }}
-        />
+        {post?.photo && (
+          <CardMedia
+            image={post.photo}
+            style={{
+              height: "60%",
+              width: "auto",
+              margin: "1rem",
+              marginTop: "-0.5rem",
+              borderRadius: "3%",
+            }}
+          />
+        )}
         <CardActions
           style={{
             display: "flex",

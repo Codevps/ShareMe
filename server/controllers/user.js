@@ -196,3 +196,25 @@ export const registerPost = async (req, res) => {
   });
   res.json(updatedPost);
 };
+
+export const followUser = async (req, res) => {
+  const { id: _id } = req.params; //post
+
+  if (!req.userId) return res.json({ message: "User not authenticated" });
+
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send("No user available with this id,Invalid Id");
+  const userId = req.userId;
+  const user = await User.findById(userId);
+  const index = user.followers.findIndex((id) => id === String(_id));
+
+  if (index === -1) {
+    user.followers.push(_id);
+  } else {
+    user.followers = user.followers.filter((id) => id !== String(_id));
+  }
+  const updatedPost = await User.findByIdAndUpdate(userId, user, {
+    new: true,
+  });
+  res.json(updatedPost);
+};

@@ -5,7 +5,7 @@ import { getProfile1 } from "../../../actions/user";
 
 const PostProfileDetails = ({ post }) => {
   const dispatch = useDispatch();
-  const { profile } = useSelector((state) => state.profile);
+  const { profile } = useSelector((state) => state.profiles);
   useEffect(() => {
     dispatch(getProfile1(post?.creator));
   }, []);

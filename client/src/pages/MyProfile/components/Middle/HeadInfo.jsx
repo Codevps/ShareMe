@@ -89,7 +89,7 @@ const HeadInfo = ({}) => {
               }}
             >
               <Typography variant="h6">
-                <b>{user.followers}</b>
+                <b>{user?.followers?.length}</b>
               </Typography>
               <Typography variant="body1">Followers</Typography>
             </div>
@@ -104,7 +104,7 @@ const HeadInfo = ({}) => {
               }}
             >
               <Typography variant="h6">
-                <b>{user.following}</b>
+                <b>{user?.following?.length}</b>
               </Typography>
               <Typography variant="body1">Following</Typography>
             </div>

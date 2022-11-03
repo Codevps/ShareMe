@@ -80,7 +80,7 @@ const YourInfo = ({ profile }) => {
               }}
             >
               <Typography variant="h6">
-                <b>{profile.followers}</b>
+                <b>{profile?.followers?.length}</b>
               </Typography>
               <Typography variant="body1">Followers</Typography>
             </div>
@@ -91,7 +91,7 @@ const YourInfo = ({ profile }) => {
               }}
             >
               <Typography variant="h6">
-                <b>{profile.following}</b>
+                <b>{profile?.following?.length}</b>
               </Typography>
               <Typography variant="body1">Following</Typography>
             </div>
@@ -118,7 +118,7 @@ const YourInfo = ({ profile }) => {
           </div>
         </CardContent>
       </Card>
-      <Followers />
+      <Followers user={profile} />
       {/* ------------------------------------------------------------------- */}
       <div
         style={{

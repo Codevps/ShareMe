@@ -52,8 +52,16 @@ const SignUp = () => {
     e.preventDefault();
     if (isSignUp) {
       dispatch(signUp(formData, navigate));
+      setTimeout(function () {
+        navigate("/home");
+      }, 1000);
+      navigate("/home");
     } else {
       dispatch(signIn(formData, navigate));
+      setTimeout(function () {
+        navigate("/home");
+      }, 1000);
+      navigate("/home");
     }
   };
 

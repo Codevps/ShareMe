@@ -9,7 +9,6 @@ const ProfileSide = () => {
   const profile = JSON.parse(localStorage.getItem("profile"));
   const dispatch = useDispatch();
   const { user, isLoading } = useSelector((state) => state.users);
-  console.log(user);
   useEffect(() => {
     dispatch(getProfile(profile?.result._id));
   }, []);
