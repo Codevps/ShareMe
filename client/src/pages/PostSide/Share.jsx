@@ -23,9 +23,8 @@ import { getProfile, registerPost } from "../../actions/user";
 import "./styles.css";
 
 const Share = ({ open, setOpen }) => {
-  const user = JSON.parse(localStorage.getItem("profile"));
-  const profile = useSelector((state) => state.users);
-  const posts = useSelector((state) => state.posts.posts);
+  const profile = JSON.parse(localStorage.getItem("profile"));
+  const { user } = useSelector((state) => state.users);
   const dispatch = useDispatch();
   const [image, setImage] = useState(false);
   const [openMessage, setOpenMessage] = useState(false);
@@ -62,7 +61,7 @@ const Share = ({ open, setOpen }) => {
     dispatch(createPost(postData));
   };
   useEffect(() => {
-    dispatch(getProfile(user?.result._id));
+    dispatch(getProfile(profile?.result._id));
   }, []);
   return (
     <div style={{ backgroundColor: "transparent" }}>
@@ -97,7 +96,7 @@ const Share = ({ open, setOpen }) => {
               }}
             >
               <CardMedia
-                image={profile?.users.profilePhoto}
+                image={user?.profilePhoto}
                 style={{
                   marginLeft: "1rem",
                   height: "4.5rem",

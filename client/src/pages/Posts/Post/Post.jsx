@@ -23,13 +23,11 @@ const Post = ({ post }) => {
   const [comments, setComments] = useState(false);
   const [likes, setLikes] = useState(post?.likes);
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem("profile"));
-  const user1 = useSelector((state) => state.users);
-  const userId = user?.result?._id;
+  const profile = JSON.parse(localStorage.getItem("profile"));
+  const { user } = useSelector((state) => state.users);
+  const userId = profile?.result?._id;
   const hasLikedPost = post?.likes?.find((like) => like === userId);
-  const hasSavedPosts = user1?.users.savedPosts?.find(
-    (like) => like === post._id
-  );
+  const hasSavedPosts = user?.savedPosts.find((like) => like === post._id);
   const handleSavedPost = () => {
     dispatch(savePost(post._id));
     setSaved((prev) => !prev);
@@ -75,7 +73,7 @@ const Post = ({ post }) => {
   };
   useEffect(() => {
     dispatch(getProfile1(post?.creator));
-    dispatch(getProfile(user?.result._id));
+    dispatch(getProfile(profile?.result._id));
     if (hasSavedPosts) {
       setSaved(true);
     } else {
@@ -133,7 +131,7 @@ const Post = ({ post }) => {
                   color: "orange",
                   fontSize: "1rem",
                 }}
-                disabled={!user?.result}
+                disabled={!profile?.result}
                 onClick={handleLike}
               >
                 <Likes />

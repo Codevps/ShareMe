@@ -5,7 +5,7 @@ import { getProfile1 } from "../../../actions/user";
 
 const PostProfileDetails = ({ post }) => {
   const dispatch = useDispatch();
-  const profile = useSelector((state) => state.profile);
+  const { profile } = useSelector((state) => state.profile);
   useEffect(() => {
     dispatch(getProfile1(post?.creator));
   }, []);
@@ -20,7 +20,7 @@ const PostProfileDetails = ({ post }) => {
         }}
       >
         <CardMedia
-          image={profile?.profile.profilePhoto}
+          image={profile?.profilePhoto}
           style={{
             borderRadius: "50%",
             width: "50px",
@@ -30,7 +30,7 @@ const PostProfileDetails = ({ post }) => {
         />
         <div>
           <Typography variant="h6">
-            <b>{profile?.profile.name}</b>
+            <b>{profile?.name}</b>
           </Typography>
           <Typography
             variant="body2"
@@ -40,7 +40,7 @@ const PostProfileDetails = ({ post }) => {
               color: "charcoal",
             }}
           >
-            {profile?.profile.profession}
+            {profile?.profession}
           </Typography>
         </div>
       </div>

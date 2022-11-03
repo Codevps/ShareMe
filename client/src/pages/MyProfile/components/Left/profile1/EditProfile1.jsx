@@ -4,6 +4,7 @@ import {
   Card,
   CardActions,
   CardContent,
+  CircularProgress,
   IconButton,
   Tooltip,
   Typography,
@@ -18,8 +19,10 @@ import EditProfileModal1 from "./EditProfileModal1";
 import { getProfile, registerPost } from "../../../../../actions/user";
 import { getPosts } from "../../../../../actions/posts";
 const EditProfile1 = ({}) => {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
-  const profile = useSelector((state) => state.users.user);
+  const [profile, setProfile] = useState(
+    JSON.parse(localStorage.getItem("profile"))
+  );
+  const { user, isLoading } = useSelector((state) => state.users);
   const posts = useSelector((state) => state.posts.posts);
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
@@ -27,20 +30,25 @@ const EditProfile1 = ({}) => {
   const dispatch = useDispatch();
   const logout = () => {
     dispatch({ type: LOGOUT });
-    setUser(null);
+    setProfile(null);
     navigate("/");
   };
   const edit = () => {
     setOpen(true);
   };
   useEffect(() => {
-    dispatch(getProfile(user?.result._id));
+    dispatch(getProfile(profile?.result._id));
     dispatch(getPosts());
     posts.map(
       (post) =>
-        post?.creator === user?.result._id && dispatch(registerPost(post._id))
+        post?.creator === profile?.result._id &&
+        dispatch(registerPost(post._id))
     );
   }, []);
+  if (isLoading) {
+    return <CircularProgress size="7em" />;
+  }
+
   return (
     <div>
       <Card
@@ -72,11 +80,7 @@ const EditProfile1 = ({}) => {
               </Tooltip>
             </IconButton>
           </div>
-          <EditProfileModal1
-            open={open}
-            setOpen={setOpen}
-            profile={profile?.users}
-          />
+          <EditProfileModal1 open={open} setOpen={setOpen} profile={user} />
           <div
             style={{
               padding: "0 2rem 0 2rem ",
@@ -88,19 +92,19 @@ const EditProfile1 = ({}) => {
               <b>Personal Info</b>:
             </Typography>
             <Typography>
-              <b>First Name:</b> {profile?.users.name}
+              <b>First Name:</b> {user?.name}
             </Typography>
             <Typography>
-              <b>Email:</b> {profile.users.email}
+              <b>Email:</b> {user?.email}
             </Typography>
             <Typography>
-              <b>Contact:</b> {profile.users.contact}
+              <b>Contact:</b> {user?.contact}
             </Typography>
             <Typography>
-              <b>Town/City</b>: {profile.users.location}
+              <b>Town/City</b>: {user?.location}
             </Typography>
             <Typography>
-              <b>Country:</b> {profile.users.country}
+              <b>Country:</b> {user?.country}
             </Typography>
           </div>
           {show && (
@@ -118,17 +122,17 @@ const EditProfile1 = ({}) => {
                 >
                   <b>Professional Info</b>:
                 </Typography>
-                <Typography>Profession: {profile.users.profession}</Typography>
-                <Typography>Working At: {profile.users.working}</Typography>
-                <Typography>Experience: {profile.users.experience}</Typography>
+                <Typography>Profession: {user?.profession}</Typography>
+                <Typography>Working At: {user?.working}</Typography>
+                <Typography>Experience: {user?.experience}</Typography>
                 <Typography>
                   Skills: useMap function
-                  {profile.users.skills}
+                  {user?.skills}
                   skills.map::with bullet points in a line
                 </Typography>
                 <Typography>
                   Skills: useMap function
-                  {profile.users.technicalSkills}
+                  {user?.technicalSkills}
                   technicalSkills.map::with bullet points in a line
                 </Typography>
               </div>
@@ -145,15 +149,9 @@ const EditProfile1 = ({}) => {
                 >
                   <b>Educational/Background Info</b>:
                 </Typography>
-                <Typography>
-                  Education till: {profile.users.education}
-                </Typography>
-                {/* could be 11 12 degree med other */}
-                {/* if degree then degree in if med then med int if other then specify  */}
-                <Typography>Degree in: {profile.users.degree}</Typography>
-                <Typography>
-                  Name of Institute: {profile.users.institute}
-                </Typography>
+                <Typography>Education till: {user?.education}</Typography>
+                <Typography>Degree in: {user?.degree}</Typography>
+                <Typography>Name of Institute: {user?.institute}</Typography>
               </div>
             </>
           )}
@@ -186,7 +184,7 @@ const EditProfile1 = ({}) => {
                   border: "1px solid red",
                 }}
                 onClick={() => {
-                  // logout();
+                  logout();
                 }}
               >
                 <b>Logout</b>

@@ -8,9 +8,9 @@ import "./styles.css";
 const Home = () => {
   const { users, user, isLoading } = useSelector((state) => state.users);
 
-  if (isLoading) {
-    return <CircularProgress size="7em" />;
-  }
+  // if (isLoading) {
+  //   return <CircularProgress size="7em" />;
+  // }
   return (
     <div className="Home">
       <div className="profileSide">

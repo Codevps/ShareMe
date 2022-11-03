@@ -7,11 +7,9 @@ import Post from "./Post/Post.jsx";
 
 const Posts = () => {
   const posts = useSelector((state) => state.posts.posts);
-  const users = useSelector((state) => state.users);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getPosts());
-    dispatch(getUsers());
   }, []);
   return (
     <Grid
@@ -21,7 +19,6 @@ const Posts = () => {
       style={{
         display: "flex",
         flexDirection: "column",
-        //  alignItems: "center"
       }}
     >
       {posts.map((post) => (

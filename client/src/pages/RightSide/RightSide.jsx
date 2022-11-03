@@ -14,23 +14,25 @@ import Post from "../Posts/Post/Post.jsx";
 import Followers from "../Followers/Followers";
 
 const RightSide = () => {
-  const posts = useSelector((state) => state.posts.posts);
+  const { posts } = useSelector((state) => state.posts);
   const [setUp, setSetUp] = useState("home");
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
-  const profile = useSelector((state) => state.users);
+  const [profile, setProfile] = useState(
+    JSON.parse(localStorage.getItem("profile"))
+  );
+  const { user } = useSelector((state) => state.users);
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const logout = () => {
     dispatch({ type: LOGOUT });
-    setUser(null);
+    setProfile(null);
     navigate("/");
   };
   useEffect(() => {
-    dispatch(getProfile(user?.result._id));
+    dispatch(getProfile(profile?.result._id));
     dispatch(getPosts());
-    const token = user?.token;
+    const token = profile?.token;
     if (token) {
       const decodedToken = decode(token);
       if (decodedToken.exp * 1000 < new Date().getTime()) {
@@ -158,7 +160,7 @@ const RightSide = () => {
             <b> Saved Posts:</b>
           </Typography>
           {posts.map((post) =>
-            profile?.users.savedPosts.map(
+            user?.savedPosts.map(
               (item) =>
                 post._id === item && (
                   <div>
@@ -174,5 +176,3 @@ const RightSide = () => {
 };
 
 export default RightSide;
-// in useEffect post.saved:map all of them and one by one call and print those posts
-// if post.id == savedpost.id print post..

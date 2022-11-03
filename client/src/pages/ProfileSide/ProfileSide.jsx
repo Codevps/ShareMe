@@ -1,3 +1,4 @@
+import { CircularProgress } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../../actions/user";
@@ -5,21 +6,20 @@ import LogoSearch from "../LogoSearch/LogoSearch";
 import YourInfo from "./YourInfo.jsx";
 
 const ProfileSide = () => {
-  const user = JSON.parse(localStorage.getItem("profile"));
+  const profile = JSON.parse(localStorage.getItem("profile"));
   const dispatch = useDispatch();
-  const profile = useSelector((state) => state.users.user);
-  // const x = async () => {
-  //   console.log(profile);
-  // };
-  // x();
-  console.log(profile);
+  const { user, isLoading } = useSelector((state) => state.users);
+  console.log(user);
   useEffect(() => {
-    dispatch(getProfile(user?.result._id));
+    dispatch(getProfile(profile?.result._id));
   }, []);
+  if (isLoading) {
+    return <CircularProgress size="7em" />;
+  }
   return (
     <div className="ProfileSide">
       <LogoSearch />
-      <YourInfo profile={profile} />
+      <YourInfo profile={user} />
     </div>
   );
 };

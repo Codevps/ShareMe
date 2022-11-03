@@ -1,6 +1,24 @@
-import { Card, CardContent, CardMedia, Typography } from "@mui/material";
-import React from "react";
-const HeadInfo = ({ profile }) => {
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  CircularProgress,
+  Typography,
+} from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfile } from "../../../../actions/user";
+const HeadInfo = ({}) => {
+  const dispatch = useDispatch();
+  const profile = JSON.parse(localStorage.getItem("profile"));
+  const { user, isLoading } = useSelector((state) => state.users);
+  useEffect(() => {
+    dispatch(getProfile(profile?.result._id));
+  }, []);
+
+  if (isLoading) {
+    return <CircularProgress size="7em" />;
+  }
   return (
     <div>
       <Card
@@ -15,7 +33,7 @@ const HeadInfo = ({ profile }) => {
         }}
       >
         <CardMedia
-          image={profile.coverPhoto}
+          image={user.coverPhoto}
           style={{
             height: 0,
             paddingTop: "46.25%",
@@ -29,7 +47,7 @@ const HeadInfo = ({ profile }) => {
           }}
         >
           <CardMedia
-            image={profile.profilePhoto}
+            image={user.profilePhoto}
             style={{
               height: "10rem",
               width: "10rem",
@@ -44,10 +62,10 @@ const HeadInfo = ({ profile }) => {
         <CardContent>
           <div style={{ marginTop: "4.6rem", textAlign: "center" }}>
             <Typography variant="h5">
-              <b>{profile.name}</b>
+              <b>{user.name}</b>
             </Typography>
             <Typography variant="body1" gutterBottom>
-              {profile.profession}
+              {user.profession}
             </Typography>
           </div>
           <div
@@ -71,7 +89,7 @@ const HeadInfo = ({ profile }) => {
               }}
             >
               <Typography variant="h6">
-                <b>{profile.followers}</b>
+                <b>{user.followers}</b>
               </Typography>
               <Typography variant="body1">Followers</Typography>
             </div>
@@ -86,7 +104,7 @@ const HeadInfo = ({ profile }) => {
               }}
             >
               <Typography variant="h6">
-                <b>{profile.following}</b>
+                <b>{user.following}</b>
               </Typography>
               <Typography variant="body1">Following</Typography>
             </div>
@@ -97,7 +115,7 @@ const HeadInfo = ({ profile }) => {
               }}
             >
               <Typography variant="h6">
-                <b>{profile.postsLength - 1}</b>
+                <b>{user.postsLength - 1}</b>
               </Typography>
               <Typography variant="body1">Posts</Typography>
             </div>
