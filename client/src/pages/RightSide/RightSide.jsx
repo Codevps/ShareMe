@@ -15,7 +15,7 @@ import Followers from "../Followers/Followers";
 
 const RightSide = () => {
   const { posts } = useSelector((state) => state.posts);
-  const [setUp, setSetUp] = useState("home");
+  const [setUp, setSetUp] = useState(false);
   const [profile, setProfile] = useState(
     JSON.parse(localStorage.getItem("profile"))
   );
@@ -52,7 +52,9 @@ const RightSide = () => {
       >
         <IconButton
           style={{ color: "black", fontSize: "2rem" }}
-          onClick={() => navigate("/home")}
+          onClick={() => {
+            setSetUp(false) && navigate("/home");
+          }}
         >
           <i class="fa-solid fa-house-user" style={{ color: "teal" }}></i>
         </IconButton>
@@ -127,13 +129,16 @@ const RightSide = () => {
           )}
         </div>
         <IconButton style={{ color: "coral", fontSize: "2rem" }}>
-          <BookmarkIcon fontSize="large" onClick={() => setSetUp("saved")} />
+          <BookmarkIcon
+            fontSize="large"
+            onClick={() => setSetUp((prev) => !prev)}
+          />
         </IconButton>{" "}
         <IconButton style={{ color: "black", fontSize: "2rem" }}>
           <QuestionAnswerIcon fontSize="large" />
         </IconButton>
       </div>
-      {setUp === "home" && (
+      {!setUp && (
         <div>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <Trends />
@@ -154,21 +159,29 @@ const RightSide = () => {
           <Followers user={user} />
         </div>
       )}
-      {setUp === "saved" && (
+      {setUp && (
         <div style={{ marginTop: "1.5rem" }}>
           <Typography variant="h5" style={{ textAlign: "center" }}>
             <b> Saved Posts:</b>
           </Typography>
-          {posts?.map((post) =>
-            user?.savedPosts?.map(
-              (item) =>
-                post._id === item && (
-                  <div>
-                    <Post post={post} />
-                  </div>
-                )
-            )
-          )}
+          <div
+            style={{
+              height: "80vh",
+              overflowY: "auto",
+              scrollbarWidth: "thin",
+            }}
+          >
+            {posts?.map((post) =>
+              user?.savedPosts?.map(
+                (item) =>
+                  post._id === item && (
+                    <div>
+                      <Post post={post} />
+                    </div>
+                  )
+              )
+            )}
+          </div>
         </div>
       )}
     </div>

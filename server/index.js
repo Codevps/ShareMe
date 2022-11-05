@@ -4,6 +4,7 @@ import cors from "cors";
 import userRouter from "./routes/user.js";
 import postRouter from "./routes/posts.js";
 import profileRouter from "./routes/profile.js";
+import followerRouter from "./routes/followers.js";
 import { CONNECTION_URL } from "./secret.js";
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use("/user", userRouter);
 app.use("/posts", postRouter);
 app.use("/profile", profileRouter);
+app.use("/followers", followerRouter);
 
 const PORT = process.env.PORT || 5000;
 

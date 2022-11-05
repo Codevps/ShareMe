@@ -21,6 +21,8 @@ API.interceptors.request.use((req) => {
 
 export const getUserProfile1 = (id) =>
   API.get(`/profile/profile/${id}`, getUserProfile1);
+export const getUserProfile2 = (id) =>
+  API.get(`/followers/followers/${id}`, getUserProfile2);
 
 export const signIn = (formData) => API.post("/user/signIn", formData);
 export const signUp = (formData) => API.post("/user/signUp", formData);
@@ -30,6 +32,7 @@ export const getUserProfile = (id) =>
   API.get(`/user/profile/${id}`, getUserProfile);
 export const getUsers = () => API.get(`/user/`);
 export const getUsers1 = () => API.get(`/profile/`);
+export const getUsers2 = () => API.get(`/followers/`);
 
 export const fetchPosts = () => API.get(`/posts/`);
 export const createPost = (newPost) => API.post("/posts", newPost);

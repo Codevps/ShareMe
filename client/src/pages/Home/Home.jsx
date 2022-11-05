@@ -1,3 +1,4 @@
+import { Grid } from "@mui/material";
 import React from "react";
 import PostSide from "../PostSide/PostSide";
 import ProfileSide from "../ProfileSide/ProfileSide";
@@ -5,17 +6,24 @@ import RightSide from "../RightSide/RightSide";
 import "./styles.css";
 const Home = () => {
   return (
-    <div className="Home">
-      <div className="profileSide">
+    <Grid container className="Home" spacing={1} style={{ behavior: "smooth" }}>
+      <Grid item className="profileSide" xs={12} sm={3} md={3} lg={3}>
         <ProfileSide />
-      </div>
-      <div className="postSide">
-        <PostSide />
-      </div>
-      <div className="rightSide">
+      </Grid>
+      <Grid item className="postSide" xs={12} sm={3} md={3} lg={5.7}>
+        <div
+          style={{
+            maxHeight: "calc(100vh)",
+            overflowY: "auto",
+          }}
+        >
+          <PostSide />
+        </div>
+      </Grid>
+      <Grid item className="rightSide" xs={12} sm={3} md={3} lg={3}>
         <RightSide />
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   );
 };
 

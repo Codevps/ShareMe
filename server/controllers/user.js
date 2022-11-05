@@ -126,18 +126,25 @@ export const getUserProfile1 = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
-
-// export const getUser = async (req, res) => {
-//   try {
-//     const customer = await User.find();
-//     res.status(200).json({ data: customer });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(404).json({ message: error.message });
-//   }
-// };
+export const getUserProfile2 = async (req, res) => {
+  const { id: _id } = req.params;
+  try {
+    const post = await User.findById(_id);
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
 
 export const getUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.status(200).json({ data: users });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+export const getUsers2 = async (req, res) => {
   try {
     const users = await User.find();
     res.status(200).json({ data: users });

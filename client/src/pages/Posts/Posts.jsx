@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { CircularProgress, circularProgressClasses, Grid } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../../actions/posts";
@@ -6,11 +6,12 @@ import { getUsers } from "../../actions/user";
 import Post from "./Post/Post.jsx";
 
 const Posts = () => {
-  const posts = useSelector((state) => state.posts.posts);
+  const { posts, isLoading } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getPosts());
   }, []);
+
   return (
     <Grid
       container
@@ -26,6 +27,7 @@ const Posts = () => {
           <Post post={post} />
         </Grid>
       ))}
+      {/* {isLoading && <circularProgressClasses size="1rem" />} */}
     </Grid>
   );
 };

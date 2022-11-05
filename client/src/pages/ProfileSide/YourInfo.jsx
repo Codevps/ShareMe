@@ -8,7 +8,7 @@ import FollowersModal from "./FollowersModal.jsx";
 
 const YourInfo = ({ profile }) => {
   const [open, setOpen] = useState(false);
-  const user = JSON.parse(localStorage.getItem("profile"));
+  const user = JSON.parse(localStorage?.getItem("profile"));
   const navigate = useNavigate();
   return (
     <div>
@@ -23,7 +23,7 @@ const YourInfo = ({ profile }) => {
         }}
       >
         <CardMedia
-          image={profile.coverPhoto}
+          image={profile?.coverPhoto}
           style={{
             height: 0,
             paddingTop: "46.25%",
@@ -37,7 +37,7 @@ const YourInfo = ({ profile }) => {
           }}
         >
           <CardMedia
-            image={profile.profilePhoto}
+            image={profile?.profilePhoto}
             style={{
               height: 0,
               paddingTop: "46.25%",
@@ -51,10 +51,10 @@ const YourInfo = ({ profile }) => {
         <CardContent>
           <div style={{ marginTop: "4.6rem", textAlign: "center" }}>
             <Typography variant="h5">
-              <b>{profile.name}</b>
+              <b>{profile?.name}</b>
             </Typography>
             <Typography variant="body1" gutterBottom>
-              {profile.profession}
+              {profile?.profession}
             </Typography>
           </div>
           <div
@@ -118,7 +118,9 @@ const YourInfo = ({ profile }) => {
           </div>
         </CardContent>
       </Card>
-      <Followers user={profile} />
+      <div>
+        <Followers />
+      </div>
       {/* ------------------------------------------------------------------- */}
       <div
         style={{

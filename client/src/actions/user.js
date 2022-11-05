@@ -4,8 +4,11 @@ import {
   END_LOADING,
   FETCH_PROFILE,
   FETCH_PROFILE1,
+  FETCH_PROFILE2,
   FOLLOW,
   GET_USERS,
+  GET_USERS1,
+  GET_USERS2,
   REGISTER,
   SAVE,
   START_LOADING,
@@ -27,6 +30,16 @@ export const getProfile1 = (id, navigate) => async (dispatch) => {
     dispatch({ type: START_LOADING });
     const { data } = await api.getUserProfile(id);
     dispatch({ type: FETCH_PROFILE1, payload: data });
+    dispatch({ type: END_LOADING });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const getProfile2 = (id, navigate) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+    const { data } = await api.getUserProfile(id);
+    dispatch({ type: FETCH_PROFILE2, payload: data });
     dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);
@@ -116,7 +129,20 @@ export const getUsers1 = () => async (dispatch) => {
     dispatch({ type: START_LOADING });
     const { data } = await api.getUsers();
     dispatch({
-      type: GET_USERS,
+      type: GET_USERS1,
+      payload: { data },
+    });
+    dispatch({ type: END_LOADING });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const getUsers2 = () => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+    const { data } = await api.getUsers();
+    dispatch({
+      type: GET_USERS2,
       payload: { data },
     });
     dispatch({ type: END_LOADING });

@@ -12,9 +12,7 @@ const ProfileSide = () => {
   useEffect(() => {
     dispatch(getProfile(profile?.result._id));
   }, []);
-  if (isLoading) {
-    return <CircularProgress size="7em" />;
-  }
+
   return (
     <div className="ProfileSide">
       <LogoSearch />

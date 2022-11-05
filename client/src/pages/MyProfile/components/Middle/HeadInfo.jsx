@@ -8,7 +8,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../../../../actions/user";
-const HeadInfo = ({}) => {
+const HeadInfo = () => {
   const dispatch = useDispatch();
   const profile = JSON.parse(localStorage.getItem("profile"));
   const { user, isLoading } = useSelector((state) => state.users);
@@ -17,7 +17,7 @@ const HeadInfo = ({}) => {
   }, []);
 
   if (isLoading) {
-    return <CircularProgress size="7em" />;
+    return <CircularProgress size="1em" />;
   }
   return (
     <div>
@@ -33,7 +33,7 @@ const HeadInfo = ({}) => {
         }}
       >
         <CardMedia
-          image={user.coverPhoto}
+          image={user?.coverPhoto}
           style={{
             height: 0,
             paddingTop: "46.25%",
@@ -47,7 +47,7 @@ const HeadInfo = ({}) => {
           }}
         >
           <CardMedia
-            image={user.profilePhoto}
+            image={user?.profilePhoto}
             style={{
               height: "10rem",
               width: "10rem",
@@ -62,10 +62,10 @@ const HeadInfo = ({}) => {
         <CardContent>
           <div style={{ marginTop: "4.6rem", textAlign: "center" }}>
             <Typography variant="h5">
-              <b>{user.name}</b>
+              <b>{user?.name}</b>
             </Typography>
             <Typography variant="body1" gutterBottom>
-              {user.profession}
+              {user?.profession}
             </Typography>
           </div>
           <div
@@ -115,7 +115,7 @@ const HeadInfo = ({}) => {
               }}
             >
               <Typography variant="h6">
-                <b>{user.postsLength - 1}</b>
+                <b>{user?.postsLength - 1}</b>
               </Typography>
               <Typography variant="body1">Posts</Typography>
             </div>

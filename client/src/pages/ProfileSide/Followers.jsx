@@ -1,9 +1,16 @@
 import { Typography } from "@mui/material";
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfile, getProfile2 } from "../../actions/user";
 import Follower from "./Follower";
 
-const Followers = ({ user }) => {
-  useEffect(() => {}, []);
+const Followers = () => {
+  const dispatch = useDispatch();
+  const profile = JSON.parse(localStorage.getItem("profile"));
+  const { user } = useSelector((state) => state.users);
+  useEffect(() => {
+    dispatch(getProfile(profile?.result._id));
+  }, []);
 
   return (
     <div>
@@ -12,9 +19,9 @@ const Followers = ({ user }) => {
           <b> Your Followers:</b>
         </Typography>
       </div>
-      {user?.followers?.map((item) => (
+      {user?.followers?.map((item, id) => (
         <div>
-          <Follower item={item} user={user} />
+          <Follower key={id} item={item} user={user} />
         </div>
       ))}
     </div>

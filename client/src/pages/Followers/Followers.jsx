@@ -8,18 +8,19 @@ import {
 } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { followUser, getUsers1 } from "../../actions/user";
+import { followUser, getUsers, getUsers1 } from "../../actions/user";
 
 const Followers = () => {
   const dispatch = useDispatch();
-  const { users } = useSelector((state) => state.users);
   const profile = JSON.parse(localStorage.getItem("profile"));
+  const { users } = useSelector((state) => state.users);
   const followProcess = (id) => {
     dispatch(followUser(id));
   };
   useEffect(() => {
-    dispatch(getUsers1());
+    dispatch(getUsers());
   }, []);
+
   return (
     <div
       style={{
@@ -33,28 +34,33 @@ const Followers = () => {
           <b> Follow More:</b>
         </Typography>
         {users?.data?.map(
-          (user) =>
+          (user, id) =>
             profile?.result?._id !== user?._id && (
-              <div>
+              <div key={id}>
                 <Card
                   style={{
                     height: "5rem",
-                    width: "23rem",
+                    width: "21rem",
                     backgroundColor: "transparent",
                     marginTop: "1rem",
                     display: "flex",
                     flexDirection: "row",
                     alignItems: "center",
                     justifyContent: "space-evenly ",
+                    margin: "auto",
+                    padding: "0.2rem",
                   }}
                   elevation={4}
                 >
                   <CardMedia
                     image={user?.profilePhoto}
                     style={{
-                      height: "4.5rem",
-                      width: "4.5rem",
+                      height: "0.5rem",
+                      width: "0.5rem",
                       borderRadius: "50%",
+                      margin: "auto",
+                      marginRight: "1.5rem",
+                      padding: "1.5rem",
                     }}
                   />
                   <CardContent style={{ padding: "0.2rem" }}>

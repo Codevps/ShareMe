@@ -46,7 +46,7 @@ const EditProfile1 = ({}) => {
     );
   }, []);
   if (isLoading) {
-    return <CircularProgress size="7em" />;
+    return <CircularProgress size="1em" />;
   }
 
   return (
