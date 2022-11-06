@@ -14,6 +14,7 @@ export const FETCH_PROFILE = "FETCH_PROFILE";
 export const UPDATE_PROFILE = "UPDATE_PROFILE";
 export const CREATE_PROFILE = "CREATE_PROFILE";
 
+export const FOLLOW_BACK = "FOLLOW_BACK";
 export const AUTH = "AUTH";
 export const LOGOUT = "LOGOUT";
 export const FOLLOW = "FOLLOW";

@@ -10,7 +10,7 @@ import {
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { followBackUser, getUsers } from "../../actions/user";
-const Follower = ({ follower, following, user }) => {
+const Following = ({ following }) => {
   const dispatch = useDispatch();
   const { users } = useSelector((state) => state.users);
   const followBack = (id) => {
@@ -24,7 +24,7 @@ const Follower = ({ follower, following, user }) => {
     <div>
       {users?.data?.map((user) => (
         <div>
-          {user?._id === follower && user?._id !== following && (
+          {user?._id === following && (
             <Card
               style={{
                 height: "5rem",
@@ -58,7 +58,7 @@ const Follower = ({ follower, following, user }) => {
                 <Typography variant="body2">{user?.profession}</Typography>
               </CardContent>
               <CardActions>
-                <Tooltip title="Follow back">
+                <Tooltip title="UnFollow">
                   <Button
                     variant="contained"
                     style={{
@@ -67,7 +67,9 @@ const Follower = ({ follower, following, user }) => {
                         "linear-gradient(98.63deg, #f9a225 0%, #f95f35 100%)",
                     }}
                     onClick={() => followBack(user?._id)}
-                  ></Button>
+                  >
+                    Following
+                  </Button>
                 </Tooltip>
               </CardActions>
             </Card>
@@ -78,4 +80,4 @@ const Follower = ({ follower, following, user }) => {
   );
 };
 
-export default Follower;
+export default Following;

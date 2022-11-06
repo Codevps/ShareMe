@@ -3,6 +3,7 @@ import {
   END_LOADING,
   FETCH_PROFILE,
   FOLLOW,
+  FOLLOW_BACK,
   GET_USERS,
   LOGOUT,
   REGISTER,
@@ -23,6 +24,13 @@ const users = (state = { isLoading: true, users: [] }, action) => {
     case LOGOUT:
       localStorage.clear();
       return { ...state, users: null };
+    case FOLLOW_BACK:
+      return {
+        ...state,
+        users: state?.users?.map((user) =>
+          user._id === action.payload._id ? action.payload : user
+        ),
+      };
     case UPDATE_PROFILE || SAVE || REGISTER || FOLLOW:
       return {
         ...state,

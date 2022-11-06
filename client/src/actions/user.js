@@ -6,6 +6,7 @@ import {
   FETCH_PROFILE1,
   FETCH_PROFILE2,
   FOLLOW,
+  FOLLOW_BACK,
   GET_USERS,
   GET_USERS1,
   GET_USERS2,
@@ -94,6 +95,16 @@ export const followUser = (id) => async (dispatch) => {
     dispatch({ type: START_LOADING });
     const { data } = await api.followUser(id);
     dispatch({ type: FOLLOW, payload: data });
+    dispatch({ type: END_LOADING });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const followBackUser = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+    const { data } = await api.followBackUser(id);
+    dispatch({ type: FOLLOW_BACK, payload: data });
     dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);

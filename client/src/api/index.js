@@ -45,3 +45,4 @@ export const commentPost = (value, id) =>
 export const savePost = (id) => API.patch(`/user/${id}/savePost`);
 export const registerPost = (id) => API.patch(`/user/${id}/registerPost`);
 export const followUser = (id) => API.patch(`/user/${id}/followUser`);
+export const followBackUser = (id) => API.patch(`/user/${id}/followBackUser`);
