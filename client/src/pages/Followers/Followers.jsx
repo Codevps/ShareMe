@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { followUser, getUsers, getUsers1 } from "../../actions/user";
+import { followUser, getUsers } from "../../actions/user";
 
 const Followers = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const Followers = () => {
   };
   useEffect(() => {
     dispatch(getUsers());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div

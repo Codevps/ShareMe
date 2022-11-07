@@ -67,7 +67,9 @@ const Follower = ({ follower, following, user }) => {
                         "linear-gradient(98.63deg, #f9a225 0%, #f95f35 100%)",
                     }}
                     onClick={() => followBack(user?._id)}
-                  ></Button>
+                  >
+                    Follow
+                  </Button>
                 </Tooltip>
               </CardActions>
             </Card>
