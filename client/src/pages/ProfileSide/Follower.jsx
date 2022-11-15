@@ -18,7 +18,7 @@ const Follower = ({ follower, following, user }) => {
   };
   useEffect(() => {
     dispatch(getUsers());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>

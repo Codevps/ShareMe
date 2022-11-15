@@ -7,6 +7,7 @@ import Post from "./Post/Post.jsx";
 
 const Posts = () => {
   const { posts, isLoading } = useSelector((state) => state.posts);
+  const user = JSON.parse(localStorage.getItem("profile"));
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getPosts());
@@ -22,11 +23,14 @@ const Posts = () => {
         flexDirection: "column",
       }}
     >
-      {posts?.map((post) => (
-        <Grid key={post._id} item>
-          <Post post={post} />
-        </Grid>
-      ))}
+      {posts?.map(
+        (post) =>
+          user?.result._id === post?.creator && (
+            <Grid key={post._id} item>
+              <Post post={post} />
+            </Grid>
+          )
+      )}
       {/* {isLoading && <circularProgressClasses size="1rem" />} */}
     </Grid>
   );
