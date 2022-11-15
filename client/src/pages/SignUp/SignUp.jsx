@@ -2,7 +2,7 @@ import { Button, Grid, Paper, Typography } from "@mui/material";
 import { useGoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signIn, signUp } from "../../actions/user";
 import { AUTH } from "../../constants/actionTypes";
@@ -13,6 +13,8 @@ import "./styles.css";
 import axios from "axios";
 
 const SignUp = () => {
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const { isLoading } = useSelector((state) => state.users);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({

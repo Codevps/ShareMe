@@ -14,16 +14,15 @@ const App = () => {
       <div className="blur" style={{ top: "38%", left: "-7rem" }}></div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" exact element={<Navigate to="/home" />} />
           <Route
-            path="/home"
+            path={"/" || "/home"}
             exact
-            element={user?.result ? <Home /> : <SignUp />}
+            element={<Navigate to={user?.result ? "/home" : "/signup"} />}
           />
-
+          <Route path="/home" exact element={<Home />} />
+          <Route path="/signup" exact element={<SignUp />} />
           <Route path="/postShare" exact element={<Share />} />
           <Route path="/:id" exact element={<MyProfile />} />
-          <Route path="/signup" exact element={<SignUp />} />
         </Routes>
       </BrowserRouter>
     </div>
