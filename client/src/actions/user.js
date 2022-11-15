@@ -90,10 +90,10 @@ export const savePost = (id) => async (dispatch) => {
     console.log(error);
   }
 };
-export const followUser = (id) => async (dispatch) => {
+export const followOtherUser = (id) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
-    const { data } = await api.followUser(id);
+    const { data } = await api.followOtherUser(id);
     dispatch({ type: FOLLOW, payload: data });
     dispatch({ type: END_LOADING });
   } catch (error) {

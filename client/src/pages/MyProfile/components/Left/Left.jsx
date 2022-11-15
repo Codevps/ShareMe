@@ -8,7 +8,6 @@ import EditProfile1 from "./profile1/EditProfile1";
 
 const Left = ({}) => {
   const [open2, setOpen2] = useState(false);
-  const [currentId, setCurrentId] = useState("");
 
   return (
     <div>

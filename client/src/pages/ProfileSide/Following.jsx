@@ -9,12 +9,12 @@ import {
 } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { followBackUser, getUsers } from "../../actions/user";
+import { followOtherUser, getUsers } from "../../actions/user";
 const Following = ({ following }) => {
   const dispatch = useDispatch();
   const { users } = useSelector((state) => state.users);
   const followBack = (id) => {
-    dispatch(followBackUser(id));
+    dispatch(followOtherUser(id));
   };
   useEffect(() => {
     dispatch(getUsers());
@@ -68,7 +68,7 @@ const Following = ({ following }) => {
                     }}
                     onClick={() => followBack(user?._id)}
                   >
-                    Following
+                    Unfollow
                   </Button>
                 </Tooltip>
               </CardActions>

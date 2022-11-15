@@ -54,16 +54,9 @@ const Followers = () => {
             </div>
             {user?.followers?.map((item, id) => (
               <div>
-                {user?.following?.map((item2, id) => (
-                  <div>
-                    <Follower
-                      key={id}
-                      follower={item}
-                      following={item2}
-                      user={user}
-                    />
-                  </div>
-                ))}
+                <div>
+                  <Follower key={id} follower={item} item={user} />
+                </div>
               </div>
             ))}
           </div>

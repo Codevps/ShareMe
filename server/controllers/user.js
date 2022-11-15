@@ -204,26 +204,42 @@ export const registerPost = async (req, res) => {
   res.json(updatedPost);
 };
 
-export const followUser = async (req, res) => {
-  const { id: _id } = req.params; //post
-
+export const followOtherUser = async (req, res) => {
+  const { id: otherUserId } = req.params; //otheruserID
   if (!req.userId) return res.json({ message: "User not authenticated" });
 
-  if (!mongoose.Types.ObjectId.isValid(_id))
+  if (!mongoose.Types.ObjectId.isValid(otherUserId))
     return res.status(404).send("No user available with this id,Invalid Id");
+
+  //put other's id in following of user
   const userId = req.userId;
   const user = await User.findById(userId);
-  const index = user.followers.findIndex((id) => id === String(_id));
+  const index = user.following.findIndex((id) => id === String(otherUserId));
 
   if (index === -1) {
-    user.followers.push(_id);
+    user.following.push(otherUserId);
   } else {
-    user.followers = user.followers.filter((id) => id !== String(_id));
+    user.following = user.following.filter((id) => id !== String(otherUserId));
   }
   const updatedPost = await User.findByIdAndUpdate(userId, user, {
     new: true,
   });
-  res.json(updatedPost);
+  // ----------------------------------------------------------------
+  // put user's id in following in other's id
+  const otherUser = await User.findById(otherUserId);
+  const index2 = otherUser.followers.findIndex((id) => id === String(userId));
+
+  if (index2 === -1) {
+    otherUser.followers.push(userId);
+  } else {
+    otherUser.followers = otherUser.followers.filter(
+      (id) => id !== String(userId)
+    );
+  }
+  const updatedPost2 = await User.findByIdAndUpdate(otherUserId, otherUser, {
+    new: true,
+  });
+  // res.json(updatedPost, updatedPost2);
 };
 
 export const followBackUser = async (req, res) => {

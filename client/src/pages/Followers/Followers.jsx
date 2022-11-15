@@ -8,14 +8,14 @@ import {
 } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { followUser, getUsers } from "../../actions/user";
+import { followOtherUser, getUsers } from "../../actions/user";
 
 const Followers = () => {
   const dispatch = useDispatch();
   const profile = JSON.parse(localStorage.getItem("profile"));
   const { users } = useSelector((state) => state.users);
   const followProcess = (id) => {
-    dispatch(followUser(id));
+    dispatch(followOtherUser(id));
   };
   useEffect(() => {
     dispatch(getUsers());

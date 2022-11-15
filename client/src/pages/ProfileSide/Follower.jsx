@@ -7,24 +7,25 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { followBackUser, getUsers } from "../../actions/user";
-const Follower = ({ follower, following, user }) => {
+import { followOtherUser, getUsers } from "../../actions/user";
+const Follower = ({ follower, item }) => {
+  let x = false;
   const dispatch = useDispatch();
   const { users } = useSelector((state) => state.users);
   const followBack = (id) => {
-    dispatch(followBackUser(id));
+    // dispatch(followBackUser(id));
+    dispatch(followOtherUser(id));
   };
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
-
   return (
     <div>
       {users?.data?.map((user) => (
         <div>
-          {user?._id === follower && user?._id !== following && (
+          {user?._id === follower && (
             <Card
               style={{
                 height: "5rem",
@@ -58,19 +59,31 @@ const Follower = ({ follower, following, user }) => {
                 <Typography variant="body2">{user?.profession}</Typography>
               </CardContent>
               <CardActions>
-                <Tooltip title="Follow back">
-                  <Button
-                    variant="contained"
-                    style={{
-                      color: "white",
-                      background:
-                        "linear-gradient(98.63deg, #f9a225 0%, #f95f35 100%)",
-                    }}
-                    onClick={() => followBack(user?._id)}
-                  >
-                    Follow
-                  </Button>
-                </Tooltip>
+                <div>
+                  <Tooltip title="Follow back">
+                    <Button
+                      variant="contained"
+                      style={{
+                        color: "white",
+                        background:
+                          "linear-gradient(98.63deg, #f9a225 0%, #f95f35 100%)",
+                      }}
+                      onClick={() => followBack(user?._id)}
+                    >
+                      {(x = false)}
+                      {user?.following?.map(
+                        (following) =>
+                          following === item?._id && (
+                            <>
+                              {(x = true)}
+                              Following
+                            </>
+                          )
+                      )}
+                      {!x && "Follow"}
+                    </Button>
+                  </Tooltip>
+                </div>
               </CardActions>
             </Card>
           )}
