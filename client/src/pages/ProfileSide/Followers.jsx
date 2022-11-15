@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../../actions/user";
 import Follower from "./Follower";
 import Following from "./Following";
+import Friends from "./Friends";
 
 const Followers = () => {
   const dispatch = useDispatch();
@@ -43,6 +44,15 @@ const Followers = () => {
         >
           Following
         </Button>
+        <Button
+          onClick={() => setFlag("friends")}
+          style={{
+            borderColor: "black",
+            borderBottom: flag === "friends" && "4px solid black",
+          }}
+        >
+          Friends
+        </Button>
       </div>
       <div>
         {flag === "followers" && (
@@ -65,12 +75,26 @@ const Followers = () => {
           <div>
             <div>
               <Typography variant="h5">
-                <b> Your Friends:</b>
+                <b>Your Following:</b>
               </Typography>
             </div>
             {user?.following?.map((item2, id) => (
               <div>
                 <Following key={id} following={item2} user={user} />
+              </div>
+            ))}
+          </div>
+        )}
+        {flag === "friends" && (
+          <div>
+            <div>
+              <Typography variant="h5">
+                <b>Friends:</b>
+              </Typography>
+            </div>
+            {user?.following?.map((item2, id) => (
+              <div>
+                <Friends key={id} friends={item2} item={user} />
               </div>
             ))}
           </div>
