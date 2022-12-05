@@ -1,8 +1,6 @@
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import cover from "../../img/cover.jpg";
-import profileImg from "../../img/profileImg.jpg";
 import Followers from "./Followers";
 import FollowersModal from "./FollowersModal.jsx";
 

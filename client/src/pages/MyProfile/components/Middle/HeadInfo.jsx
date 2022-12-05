@@ -17,7 +17,7 @@ const HeadInfo = () => {
   }, []);
 
   if (isLoading) {
-    return <CircularProgress size="1em" />;
+    return <CircularProgress size="1rem" />;
   }
   return (
     <div>

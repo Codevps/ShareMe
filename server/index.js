@@ -5,6 +5,7 @@ import userRouter from "./routes/user.js";
 import postRouter from "./routes/posts.js";
 import profileRouter from "./routes/profile.js";
 import followerRouter from "./routes/followers.js";
+import chatRouter from "./routes/chats.js";
 import { CONNECTION_URL } from "./secret.js";
 
 const app = express();
@@ -16,6 +17,7 @@ app.use("/user", userRouter);
 app.use("/posts", postRouter);
 app.use("/profile", profileRouter);
 app.use("/followers", followerRouter);
+app.use("/chat", chatRouter);
 
 const PORT = process.env.PORT || 5000;
 
