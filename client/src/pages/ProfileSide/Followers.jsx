@@ -1,5 +1,4 @@
 import { Button, Typography } from "@mui/material";
-import { flexbox } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../../actions/user";

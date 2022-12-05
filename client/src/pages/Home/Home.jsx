@@ -19,7 +19,7 @@ const Home = () => {
   const logout = () => {
     dispatch({ type: LOGOUT });
     setProfile(null);
-    navigate("/");
+    navigate("/signup");
   };
   useEffect(() => {
     dispatch(getProfile(profile?.result._id));

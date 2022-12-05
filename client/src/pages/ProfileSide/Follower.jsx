@@ -7,7 +7,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { followOtherUser, getUsers } from "../../actions/user";
 const Follower = ({ follower, item }) => {
@@ -71,7 +71,7 @@ const Follower = ({ follower, item }) => {
                       onClick={() => followBack(user?._id)}
                     >
                       {(x = false)}
-                      {user?.following?.map(
+                      {user?.followers?.map(
                         (following) =>
                           following === item?._id && (
                             <>

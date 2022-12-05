@@ -31,7 +31,7 @@ const EditProfile1 = ({}) => {
   const logout = () => {
     dispatch({ type: LOGOUT });
     setProfile(null);
-    navigate("/");
+    navigate("/signup");
   };
   const edit = () => {
     setOpen(true);
