@@ -133,9 +133,12 @@ const RightSide = () => {
             fontSize="large"
             onClick={() => setSetUp((prev) => !prev)}
           />
-        </IconButton>{" "}
+        </IconButton>
         <IconButton style={{ color: "black", fontSize: "2rem" }}>
-          <QuestionAnswerIcon fontSize="large" />
+          <QuestionAnswerIcon
+            fontSize="large"
+            onClick={() => navigate("/chatsApp")}
+          />
         </IconButton>
       </div>
       {!setUp && (
