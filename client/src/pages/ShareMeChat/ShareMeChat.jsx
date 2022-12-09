@@ -1,24 +1,28 @@
-import { Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import Logo from "../../img/logo.png";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import ChatFace from "./ChatFace";
+import MessageFace from "./MessageFace.jsx";
 
 const ShareMeChat = () => {
   const navigate = useNavigate();
+
   return (
-    <div
+    <Grid
+      container
+      spacing={3}
       style={{
-        display: "flex",
-        alignItems: "center",
-        flexDirection: "row",
+        height: "100vh",
       }}
     >
-      <img src={Logo} alt="ShareMe" onClick={() => navigate("/chatsApp")} />
-      <Typography style={{ paddingLeft: "1rem" }}>
-        <b>ShareMeChat</b>
-      </Typography>
-    </div>
+      <Grid item>
+        <ChatFace />
+      </Grid>
+      <Grid item style={{ zIndex: "1300" }}>
+        <MessageFace />
+      </Grid>
+    </Grid>
   );
 };
-
 export default ShareMeChat;

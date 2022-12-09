@@ -8,7 +8,7 @@ import YourInfo from "./YourInfo.jsx";
 const ProfileSide = () => {
   const profile = JSON.parse(localStorage.getItem("profile"));
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.users);
+  const { user, isLoading } = useSelector((state) => state.users);
   useEffect(() => {
     dispatch(getProfile(profile?.result._id));
   }, []);

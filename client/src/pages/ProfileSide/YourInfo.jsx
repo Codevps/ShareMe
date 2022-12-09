@@ -8,6 +8,7 @@ const YourInfo = ({ profile }) => {
   const [open, setOpen] = useState(false);
   const user = JSON.parse(localStorage?.getItem("profile"));
   const navigate = useNavigate();
+
   return (
     <div>
       <Card
