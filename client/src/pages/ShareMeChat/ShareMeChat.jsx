@@ -1,9 +1,18 @@
 import { Grid } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfile } from "../../actions/user";
 import ChatFace from "./ChatFace";
 import MessageFace from "./MessageFace.jsx";
 
 const ShareMeChat = () => {
+  const dispatch = useDispatch();
+  const profile = JSON.parse(localStorage.getItem("profile"));
+  const { user } = useSelector((state) => state.users);
+  console.log(user);
+  useEffect(() => {
+    dispatch(getProfile(profile?.result._id));
+  }, []);
   return (
     <Grid
       container
@@ -16,7 +25,7 @@ const ShareMeChat = () => {
       }}
     >
       <Grid style={{ zIndex: "1300" }} item xs={5} sm={4} md={3.5} lg={2.5}>
-        <ChatFace />
+        <ChatFace user={user} />
       </Grid>
 
       <Grid
@@ -27,7 +36,7 @@ const ShareMeChat = () => {
         md={8}
         lg={9}
       >
-        <MessageFace />
+        <MessageFace user={user} />
       </Grid>
     </Grid>
   );

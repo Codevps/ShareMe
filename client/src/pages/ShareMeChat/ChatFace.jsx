@@ -4,10 +4,9 @@ import { useNavigate } from "react-router-dom";
 import Logo from "../../img/logo.png";
 import ChatCard from "./ChatCard.jsx";
 
-const ChatFace = () => {
+const ChatFace = ({ user }) => {
   const navigate = useNavigate();
   const [chats, setChats] = useState(false);
-  const user = JSON.parse(localStorage.getItem("profile"));
   return (
     <div
       style={{
@@ -23,7 +22,7 @@ const ChatFace = () => {
           zIndex: "1300",
         }}
       >
-        <img src={Logo} alt="ShareMe" onClick={() => navigate("/chatsApp")} />
+        <img src={Logo} alt="ShareMe" onClick={() => navigate("/home")} />
         <Typography style={{ paddingLeft: "1rem" }}>
           <b>ShareMeChat</b>
         </Typography>
@@ -41,18 +40,7 @@ const ChatFace = () => {
         >
           <b style={{ fontSize: "2rem" }}>Chats</b>
         </Typography>
-        {/* <Typography
-          variant="body1"
-          style={{
-            paddingLeft: "1rem",
-            marginTop: "1rem",
-            fontSize: "1.5rem",
-            color: "grey",
-          }}
-        >
-          Conversations
-        </Typography> */}
-        <ChatCard />
+        <ChatCard user={user} />
       </Card>
     </div>
   );

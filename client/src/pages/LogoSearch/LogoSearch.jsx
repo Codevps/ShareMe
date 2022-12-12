@@ -25,7 +25,7 @@ const LogoSearch = () => {
               <InputAdornment position="end">
                 <IconButton onClick={() => {}}>
                   <Tooltip title="Explore People">
-                    <SearchIcon style={{ color: "coral", pointer: "hover" }} />
+                    <SearchIcon style={{ color: "coral", cursor: "pointer" }} />
                   </Tooltip>
                 </IconButton>
               </InputAdornment>

@@ -1,8 +1,7 @@
 import { CardContent, CardMedia, Typography } from "@mui/material";
 import React from "react";
 
-const ChatCard = () => {
-  const user = JSON.parse(localStorage.getItem("profile"));
+const ChatCard = ({ user }) => {
   return (
     <div
       style={{
@@ -15,7 +14,7 @@ const ChatCard = () => {
       }}
     >
       <CardMedia
-        image={user?.result?.profilePhoto}
+        image={user?.profilePhoto}
         style={{
           height: "0.5rem",
           width: "0.5rem",
@@ -28,9 +27,9 @@ const ChatCard = () => {
       />
       <CardContent style={{ padding: "0.2rem" }}>
         <Typography variant="body1">
-          <b>{user?.result?.name}</b>
+          <b>{user?.name}</b>
         </Typography>
-        <Typography variant="body2">{user?.result?.profession}</Typography>
+        <Typography variant="body2">{user?.profession}</Typography>
       </CardContent>
     </div>
   );

@@ -1,8 +1,9 @@
-import { CardMedia, Typography } from "@mui/material";
+import { CardMedia, IconButton, Paper, Typography } from "@mui/material";
 import React from "react";
-
-const MessageFace = () => {
-  const user = JSON.parse(localStorage.getItem("profile"));
+import MoreVertRoundedIcon from "@mui/icons-material/MoreVertRounded";
+import { useState } from "react";
+const MessageFace = ({ user }) => {
+  const [show, setShow] = useState(false);
   return (
     <div>
       <div
@@ -25,7 +26,7 @@ const MessageFace = () => {
           }}
         >
           <CardMedia
-            image={user?.result?.profilePhoto}
+            image={user?.profilePhoto}
             style={{
               height: "0.5rem",
               width: "0.5rem",
@@ -37,10 +38,43 @@ const MessageFace = () => {
             }}
           />
           <Typography variant="body1" style={{ paddingLeft: "1rem" }}>
-            <b>{user?.result?.name}</b>
+            <b>{user?.name}</b>
           </Typography>
         </div>
-        <div style={{}}>wow</div>
+        <div>
+          <IconButton>
+            <MoreVertRoundedIcon
+              style={{ color: "coral", cursor: "pointer" }}
+              onClick={() => setShow((prev) => !prev)}
+            />
+          </IconButton>
+          {show && (
+            <Paper
+              style={{
+                position: "absolute",
+                right: "1rem",
+                backgroundColor: "#fed8b1",
+                opacity: "0.9",
+                display: "flex",
+                flexDirection: "column",
+                padding: "0.5rem",
+                zIndex: "1000",
+                width: "8rem",
+                textAlign: "center",
+              }}
+            >
+              <div style={{ paddingBottom: "1rem", borderBottom: "1px" }}>
+                Delete Chat
+              </div>
+              <div style={{ paddingBottom: "1rem", borderBottom: "1px" }}>
+                Clear Messages
+              </div>
+              <div style={{ paddingBottom: "1rem", borderBottom: "1px" }}>
+                Pin To Top
+              </div>
+            </Paper>
+          )}
+        </div>
       </div>
     </div>
   );
