@@ -1,12 +1,20 @@
 import { Card, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getChats } from "../../actions/chats";
 import Logo from "../../img/logo.png";
+import LogoSearch from "../LogoSearch/LogoSearch";
 import ChatCard from "./ChatCard.jsx";
 
 const ChatFace = ({ user }) => {
   const navigate = useNavigate();
-  const [chats, setChats] = useState(false);
+  const dispatch = useDispatch();
+  const { chats } = useSelector((state) => state.chats);
+
+  useEffect(() => {
+    dispatch(getChats(user?._id));
+  }, [user]);
   return (
     <div
       style={{
@@ -14,18 +22,8 @@ const ChatFace = ({ user }) => {
         width: "auto",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "row",
-          zIndex: "1300",
-        }}
-      >
-        <img src={Logo} alt="ShareMe" onClick={() => navigate("/home")} />
-        <Typography style={{ paddingLeft: "1rem" }}>
-          <b>ShareMeChat</b>
-        </Typography>
+      <div>
+        <LogoSearch />
       </div>
       <Card style={{ height: "90vh", marginTop: "1rem", zIndex: "4300" }}>
         <Typography
@@ -40,7 +38,9 @@ const ChatFace = ({ user }) => {
         >
           <b style={{ fontSize: "2rem" }}>Chats</b>
         </Typography>
-        <ChatCard user={user} />
+        {chats.map((chat) => (
+          <ChatCard currentUser={user} data={chat} />
+        ))}
       </Card>
     </div>
   );

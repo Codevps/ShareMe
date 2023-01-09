@@ -9,7 +9,6 @@ const ShareMeChat = () => {
   const dispatch = useDispatch();
   const profile = JSON.parse(localStorage.getItem("profile"));
   const { user } = useSelector((state) => state.users);
-  console.log(user);
   useEffect(() => {
     dispatch(getProfile(profile?.result._id));
   }, []);
@@ -18,16 +17,17 @@ const ShareMeChat = () => {
       container
       spacing={2}
       style={{
-        height: "100vh",
+        height: "97vh",
         width: "100vw",
         display: "flex",
         flexDirection: "row",
+        overflowX: "hidden",
+        overflowY: "hidden",
       }}
     >
       <Grid style={{ zIndex: "1300" }} item xs={5} sm={4} md={3.5} lg={2.5}>
         <ChatFace user={user} />
       </Grid>
-
       <Grid
         item
         style={{ zIndex: "1300", marginLeft: "1rem" }}

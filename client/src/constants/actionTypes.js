@@ -25,3 +25,6 @@ export const END_LOADING = "END_LOADING";
 export const COMMENT = "COMMENT";
 export const SAVE = "SAVE";
 export const REGISTER = "REGISTER";
+export const CREATE_CHATS = "CREATE_CHATS";
+export const GET_CHATS = "GET_CHATS";
+export const FIND_CHATS = "FIND_CHATS";

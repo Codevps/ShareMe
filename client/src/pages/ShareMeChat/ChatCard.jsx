@@ -1,7 +1,16 @@
 import { CardContent, CardMedia, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserProfile1 } from "../../api";
 
-const ChatCard = ({ user }) => {
+const ChatCard = ({ currentUser, data }) => {
+  const [userData, setUserData] = null;
+  const { profile } = useSelector((state) => state.profile);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const userId = data.members.find((id) => id !== currentUser?.id);
+    dispatch(getUserProfile1(userId));
+  }, []);
   return (
     <div
       style={{
@@ -14,7 +23,7 @@ const ChatCard = ({ user }) => {
       }}
     >
       <CardMedia
-        image={user?.profilePhoto}
+        image={currentUser?.profilePhoto}
         style={{
           height: "0.5rem",
           width: "0.5rem",
@@ -27,9 +36,9 @@ const ChatCard = ({ user }) => {
       />
       <CardContent style={{ padding: "0.2rem" }}>
         <Typography variant="body1">
-          <b>{user?.name}</b>
+          <b>{currentUser?.name}</b>
         </Typography>
-        <Typography variant="body2">{user?.profession}</Typography>
+        <Typography variant="body2">{currentUser?.profession}</Typography>
       </CardContent>
     </div>
   );

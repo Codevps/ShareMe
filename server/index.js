@@ -16,7 +16,7 @@ app.use(express.urlencoded({ limit: "30mb", extended: true }));
 
 app.use("/user", userRouter);
 app.use("/posts", postRouter);
-app.use("/profile", profileRouter);
+app.use("/prof ile", profileRouter);
 app.use("/followers", followerRouter);
 app.use("/chat", chatRouter);
 app.use("/chatMessages", chatMessagesRouter);

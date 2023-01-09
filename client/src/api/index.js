@@ -46,3 +46,7 @@ export const savePost = (id) => API.patch(`/user/${id}/savePost`);
 export const registerPost = (id) => API.patch(`/user/${id}/registerPost`);
 export const followOtherUser = (id) => API.patch(`/user/${id}/followOtherUser`);
 export const followBackUser = (id) => API.patch(`/user/${id}/followBackUser`);
+
+export const userChats = (id) => API.get(`/chat/${id}`);
+export const findChat = (id) => API.get(`/chat`);
+export const createChat = (id) => API.post(`/chat`);

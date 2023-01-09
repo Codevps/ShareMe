@@ -1,11 +1,13 @@
 import { CardMedia, IconButton, Paper, Typography } from "@mui/material";
 import React from "react";
 import MoreVertRoundedIcon from "@mui/icons-material/MoreVertRounded";
+import Messages from "./Messages.jsx";
+import ChatInput from "./ChatInput.jsx";
 import { useState } from "react";
 const MessageFace = ({ user }) => {
   const [show, setShow] = useState(false);
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       <div
         style={{
           display: "flex",
@@ -75,6 +77,12 @@ const MessageFace = ({ user }) => {
             </Paper>
           )}
         </div>
+      </div>
+      <div>
+        <Messages />
+      </div>
+      <div style={{ position: "absolute", bottom: "1rem" }}>
+        <ChatInput />
       </div>
     </div>
   );
