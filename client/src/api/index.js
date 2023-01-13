@@ -53,4 +53,4 @@ export const findChat = (firstId, secondId) =>
 export const createChat = (id) => API.post(`/chat`);
 
 export const getMessages = (chatId) => API.get(`/chatMessages/${chatId}`);
-export const addMessage = () => API.post(`/chatMessages`);
+export const addMessage = (data) => API.post(`/chatMessages`, data);

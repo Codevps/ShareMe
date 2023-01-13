@@ -1,15 +1,14 @@
-import { CardMedia, IconButton, Paper, Typography } from "@mui/material";
-import React, { useEffect } from "react";
 import MoreVertRoundedIcon from "@mui/icons-material/MoreVertRounded";
-import Messages from "./Messages.jsx";
-import ChatInput from "./ChatInput.jsx";
-import { useState } from "react";
+import { CardMedia, IconButton, Paper, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProfile1 } from "../../actions/user.js";
 import { getMessages } from "../../actions/messages.js";
-const MessageFace = ({ user, chat }) => {
+import { getProfile1 } from "../../actions/user.js";
+import ChatInput from "./ChatInput.jsx";
+import Messages from "./Messages.jsx";
+const MessageFace = ({ user, chat, setSendMessage, receiveMessage }) => {
   const [show, setShow] = useState(false);
-  const { messages } = useSelector((state) => state.messages);
+  let { messages } = useSelector((state) => state.messages);
   const { profile } = useSelector((state) => state.profiles);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -20,6 +19,14 @@ const MessageFace = ({ user, chat }) => {
   useEffect(() => {
     if (chat !== null) dispatch(getMessages(chat?._id));
   }, [chat, messages]);
+
+  useEffect(() => {
+    if (receiveMessage !== null && receiveMessage.chatId === chat._id) {
+      messages = { ...messages, receiveMessage };
+      //work on quickly rendering the message
+    }
+  }, [receiveMessage]);
+
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       {chat ? (
@@ -100,7 +107,11 @@ const MessageFace = ({ user, chat }) => {
             ))}
           </div>
           <div style={{ position: "absolute", bottom: "1rem" }}>
-            <ChatInput user={user} />
+            <ChatInput
+              user={user}
+              chat={chat}
+              setSendMessage={setSendMessage}
+            />
           </div>
         </div>
       ) : (

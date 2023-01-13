@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile1 } from "../../actions/user";
 
-const ChatCard = ({ currentUser, data }) => {
+const ChatCard = ({ currentUser, data, online }) => {
   const { profile } = useSelector((state) => state.profiles);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -38,6 +38,7 @@ const ChatCard = ({ currentUser, data }) => {
           <b>{profile?.name}</b>
         </Typography>
         <Typography variant="body2">{profile?.profession}</Typography>
+        <Typography variant="body2">{online ? "Online" : "Offline"}</Typography>
       </CardContent>
     </div>
   );
