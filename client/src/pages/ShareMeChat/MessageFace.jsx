@@ -1,89 +1,111 @@
 import { CardMedia, IconButton, Paper, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import MoreVertRoundedIcon from "@mui/icons-material/MoreVertRounded";
 import Messages from "./Messages.jsx";
 import ChatInput from "./ChatInput.jsx";
 import { useState } from "react";
-const MessageFace = ({ user }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { getProfile1 } from "../../actions/user.js";
+import { getMessages } from "../../actions/messages.js";
+const MessageFace = ({ user, chat }) => {
   const [show, setShow] = useState(false);
+  const { messages } = useSelector((state) => state.messages);
+  const { profile } = useSelector((state) => state.profiles);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const userId = chat?.members?.find((id) => id !== profile?.id);
+    if (chat !== null) dispatch(getProfile1(userId));
+  }, [chat, user]);
+
+  useEffect(() => {
+    if (chat !== null) dispatch(getMessages(chat?._id));
+  }, [chat, messages]);
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          borderBottom: "1px solid grey",
-          paddingBottom: "1rem",
-          justifyContent: "space-between",
-          maxWidth: "auto",
-          minWidth: "auto",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <CardMedia
-            image={user?.profilePhoto}
-            style={{
-              height: "0.5rem",
-              width: "0.5rem",
-              borderRadius: "50%",
-              margin: "auto",
-              marginRight: "0.5rem",
-              marginLeft: "0.5rem",
-              padding: "1rem",
-            }}
-          />
-          <Typography variant="body1" style={{ paddingLeft: "1rem" }}>
-            <b>{user?.name}</b>
-          </Typography>
-        </div>
+      {chat ? (
         <div>
-          <IconButton>
-            <MoreVertRoundedIcon
-              style={{ color: "coral", cursor: "pointer" }}
-              onClick={() => setShow((prev) => !prev)}
-            />
-          </IconButton>
-          {show && (
-            <Paper
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              borderBottom: "1px solid grey",
+              paddingBottom: "1rem",
+              justifyContent: "space-between",
+              maxWidth: "auto",
+              minWidth: "auto",
+            }}
+          >
+            <div
               style={{
-                position: "absolute",
-                right: "1rem",
-                backgroundColor: "#fed8b1",
-                opacity: "0.9",
                 display: "flex",
-                flexDirection: "column",
-                padding: "0.5rem",
-                zIndex: "1000",
-                width: "8rem",
-                textAlign: "center",
+                flexDirection: "row",
+                alignItems: "center",
               }}
             >
-              <div style={{ paddingBottom: "1rem", borderBottom: "1px" }}>
-                Delete Chat
-              </div>
-              <div style={{ paddingBottom: "1rem", borderBottom: "1px" }}>
-                Clear Messages
-              </div>
-              <div style={{ paddingBottom: "1rem", borderBottom: "1px" }}>
-                Pin To Top
-              </div>
-            </Paper>
-          )}
+              <CardMedia
+                image={profile?.profilePhoto}
+                style={{
+                  height: "0.5rem",
+                  width: "0.5rem",
+                  borderRadius: "50%",
+                  margin: "auto",
+                  marginRight: "0.5rem",
+                  marginLeft: "0.5rem",
+                  padding: "1rem",
+                }}
+              />
+              <Typography variant="body1" style={{ paddingLeft: "1rem" }}>
+                <b>{profile?.name}</b>
+              </Typography>
+            </div>
+            <div>
+              <IconButton>
+                <MoreVertRoundedIcon
+                  style={{ color: "coral", cursor: "pointer" }}
+                  onClick={() => setShow((prev) => !prev)}
+                />
+              </IconButton>
+              {show && (
+                <Paper
+                  style={{
+                    position: "absolute",
+                    right: "1rem",
+                    backgroundColor: "#fed8b1",
+                    opacity: "0.9",
+                    display: "flex",
+                    flexDirection: "column",
+                    padding: "0.5rem",
+                    zIndex: "1000",
+                    width: "8rem",
+                    textAlign: "center",
+                  }}
+                >
+                  <div style={{ paddingBottom: "1rem", borderBottom: "1px" }}>
+                    Delete Chat
+                  </div>
+                  <div style={{ paddingBottom: "1rem", borderBottom: "1px" }}>
+                    Clear Messages
+                  </div>
+                  <div style={{ paddingBottom: "1rem", borderBottom: "1px" }}>
+                    Pin To Top
+                  </div>
+                </Paper>
+              )}
+            </div>
+          </div>
+          <div>
+            {messages.map((message) => (
+              <Messages message={message} user={user} />
+            ))}
+          </div>
+          <div style={{ position: "absolute", bottom: "1rem" }}>
+            <ChatInput user={user} />
+          </div>
         </div>
-      </div>
-      <div>
-        <Messages />
-      </div>
-      <div style={{ position: "absolute", bottom: "1rem" }}>
-        <ChatInput />
-      </div>
+      ) : (
+        <span>Tap to start conversation</span>
+      )}
     </div>
   );
 };

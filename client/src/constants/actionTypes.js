@@ -28,3 +28,6 @@ export const REGISTER = "REGISTER";
 export const CREATE_CHATS = "CREATE_CHATS";
 export const GET_CHATS = "GET_CHATS";
 export const FIND_CHATS = "FIND_CHATS";
+
+export const CREATE_MESSAGES = "CREATE_MESSAGES";
+export const GET_MESSAGES = "GET_MESSAGES";

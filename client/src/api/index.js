@@ -48,5 +48,9 @@ export const followOtherUser = (id) => API.patch(`/user/${id}/followOtherUser`);
 export const followBackUser = (id) => API.patch(`/user/${id}/followBackUser`);
 
 export const userChats = (id) => API.get(`/chat/${id}`);
-export const findChat = (id) => API.get(`/chat`);
+export const findChat = (firstId, secondId) =>
+  API.get(`/chat/find/${firstId}/${secondId}`);
 export const createChat = (id) => API.post(`/chat`);
+
+export const getMessages = (chatId) => API.get(`/chatMessages/${chatId}`);
+export const addMessage = () => API.post(`/chatMessages`);

@@ -1,21 +1,21 @@
 import { Button, TextField } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
+import InputEmoji from "react-input-emoji";
 
 const ChatInput = () => {
+  const [newMessage, setNewMessage] = useState("");
+  const handleChange = () => {};
+
   return (
-    <div
-      style={{
-        backgroundColor: "black",
-        width: "100%",
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        opacity: "0.7",
-      }}
-    >
-      <TextField style={{}} />
-      <Button>Send</Button>
+    <div>
+      <div>+</div>
+      <InputEmoji
+        value={newMessage}
+        onChange={() => setNewMessage(newMessage)}
+      />
+      <div>
+        <button>send</button>
+      </div>
     </div>
   );
 };
